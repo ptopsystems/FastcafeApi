@@ -7,7 +7,7 @@ spring:
       ddl-auto: none
     show-sql: true
     properties:
-      hiberate:
+      hibernate:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
 
 datasource:
