@@ -1,6 +1,6 @@
 package com.rest.api.controller;
 
-import com.rest.api.entity.fastcafe.Admin;
+import com.rest.api.entity.fastcafe_admin.Admin;
 import com.rest.api.exception.AdminNotFoundException;
 import com.rest.api.jwt.JwtTokenProvider;
 import com.rest.api.result.CommonResult;
@@ -8,7 +8,10 @@ import com.rest.api.result.DataResult;
 import com.rest.api.service.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RestController
@@ -28,6 +31,6 @@ public class LoginController {
         if(!passwordEncoder.matches(password, admin.getPassword())){
             throw new AdminNotFoundException();
         }
-        return DataResult.Success(jwtTokenProvider.createToken(String.valueOf(admin.getId()), admin.getRole()));
+        return DataResult.Success("accessToken", jwtTokenProvider.createToken(String.valueOf(admin.getId()), admin.getRole()));
     }
 }

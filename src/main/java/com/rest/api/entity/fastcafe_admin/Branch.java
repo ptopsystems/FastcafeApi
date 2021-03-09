@@ -1,7 +1,9 @@
-package com.rest.api.entity.fastcafe;
+package com.rest.api.entity.fastcafe_admin;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;

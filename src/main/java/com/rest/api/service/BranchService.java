@@ -1,14 +1,13 @@
 package com.rest.api.service;
 
-import com.rest.api.entity.fastcafe.Branch;
-import com.rest.api.entity.fastcafe.BranchMachine;
-import com.rest.api.repository.fastcafe.BranchMachineRepository;
-import com.rest.api.repository.fastcafe.BranchRepository;
+import com.rest.api.entity.fastcafe_admin.Branch;
+import com.rest.api.entity.fastcafe_admin.BranchMachine;
+import com.rest.api.repository.fastcafe_admin.BranchMachineRepository;
+import com.rest.api.repository.fastcafe_admin.BranchRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-
 import java.util.List;
 import java.util.Optional;
 

@@ -1,7 +1,7 @@
 package com.rest.api.controller;
 
-import com.rest.api.entity.fastcafe.Admin;
-import com.rest.api.entity.fastcafe.TotalPayDaily;
+import com.rest.api.entity.fastcafe_admin.Admin;
+import com.rest.api.entity.fastcafe_admin.TotalPayDaily;
 import com.rest.api.exception.AdminNotFoundException;
 import com.rest.api.result.CommonResult;
 import com.rest.api.result.DataResult;

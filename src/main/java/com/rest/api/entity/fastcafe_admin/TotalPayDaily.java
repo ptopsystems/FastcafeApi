@@ -1,33 +1,36 @@
-package com.rest.api.entity.fastcafe;
+package com.rest.api.entity.fastcafe_admin;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.sql.Timestamp;
 
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
-@Table(name = "branch_operate_detail")
-public class BranchOperateDetail {
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(name = "total_pay_daily")
+public class TotalPayDaily {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private int id;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(name = "branch_id")
-    private int branchId;
-    private String detailType;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private String stat;
+    private int branchId;
+    @Column(name = "branch_machine_id")
+    private int branch_machine_id;
+
+    private Date indexRegdate;
+    private int payMoney;
+    private int payCnt;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Timestamp regdate;
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private Timestamp moddate;
 }

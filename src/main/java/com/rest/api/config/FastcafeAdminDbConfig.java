@@ -21,42 +21,42 @@ import java.util.HashMap;
 @RequiredArgsConstructor
 @PropertySource(value = "classpath:application.yml")
 @EnableJpaRepositories(
-        entityManagerFactoryRef = "fastCafeEntityManager",
-        transactionManagerRef = "fastCafeTransactionManager",
-        basePackages = {"com.rest.api.repository.fastcafe"}
+        entityManagerFactoryRef = "fastcafeAdminEntityManager",
+        transactionManagerRef = "fastcafeAdminTransactionManager",
+        basePackages = {"com.rest.api.repository.fastcafe_admin"}
 )
 
-public class FastCafeDbConfig {
+public class FastcafeAdminDbConfig {
 
     private final Environment env;
 
     @Primary
-    @Bean(name = "fastCafeDataSource")
-    @ConfigurationProperties(prefix = "datasource.fastcafe")
-    public DataSource fastCafeDataSource(){
+    @Bean(name = "fastcafeAdminDataSource")
+    @ConfigurationProperties(prefix = "datasource.fastcafe-admin")
+    public DataSource fastcafeAdminDataSource(){
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(env.getProperty("datasource.fastcafe.driver-class-name"));
-        dataSource.setUrl(env.getProperty("datasource.fastcafe.url"));
-        dataSource.setUsername(env.getProperty("datasource.fastcafe.username"));
-        dataSource.setPassword(env.getProperty("datasource.fastcafe.password"));
+        dataSource.setUrl(env.getProperty("datasource.fastcafe-admin.url"));
+        dataSource.setUsername(env.getProperty("datasource.fastcafe-admin.username"));
+        dataSource.setPassword(env.getProperty("datasource.fastcafe-admin.password"));
+        dataSource.setDriverClassName(env.getProperty("datasource.fastcafe-admin.driver-class-name"));
 
         return dataSource;
     }
 
     @Primary
     @Bean
-    public LocalContainerEntityManagerFactoryBean fastCafeEntityManager(){
+    public LocalContainerEntityManagerFactoryBean fastcafeAdminEntityManager(){
         LocalContainerEntityManagerFactoryBean entityManager = new LocalContainerEntityManagerFactoryBean();
-        entityManager.setDataSource(fastCafeDataSource());
-        entityManager.setPackagesToScan("com.rest.api.entity.fastcafe");
-        entityManager.setPersistenceUnitName("fastcafe_datasource");
+        entityManager.setDataSource(fastcafeAdminDataSource());
+        entityManager.setPackagesToScan("com.rest.api.entity.fastcafe_admin");
+        entityManager.setPersistenceUnitName("fastcafeadmin");
 
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         entityManager.setJpaVendorAdapter(vendorAdapter);
 
         HashMap<String, Object> properties = new HashMap<>();
-        properties.put("hibernate.dialect", env.getProperty("spring.jpa.properties.hibernate.dialect"));
         properties.put("hibernate.show_sql", env.getProperty("spring.jpa.show-sql"));
+        properties.put("hibernate.dialect", env.getProperty("spring.jpa.properties.hibernate.dialect"));
 
         entityManager.setJpaPropertyMap(properties);
         entityManager.afterPropertiesSet();
@@ -66,10 +66,10 @@ public class FastCafeDbConfig {
 
     @Primary
     @Bean
-    public PlatformTransactionManager fastCafeTransactionManager(){
+    public PlatformTransactionManager fastcafeAdminTransactionManager(){
 
         JpaTransactionManager transactionManager = new JpaTransactionManager();
-        transactionManager.setEntityManagerFactory(fastCafeEntityManager().getObject());
+        transactionManager.setEntityManagerFactory(fastcafeAdminEntityManager().getObject());
         return transactionManager;
     }
 }

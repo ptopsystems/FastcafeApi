@@ -1,7 +1,7 @@
 package com.rest.api.service;
 
-import com.rest.api.entity.fastcafe.TotalPayDaily;
-import com.rest.api.repository.fastcafe.TotalPayDailyRepository;
+import com.rest.api.entity.fastcafe_admin.TotalPayDaily;
+import com.rest.api.repository.fastcafe_admin.TotalPayDailyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

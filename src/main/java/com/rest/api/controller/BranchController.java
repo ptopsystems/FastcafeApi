@@ -1,8 +1,8 @@
 package com.rest.api.controller;
 
-import com.rest.api.entity.fastcafe.Admin;
-import com.rest.api.entity.fastcafe.Branch;
-import com.rest.api.entity.fastcafe.BranchMachine;
+import com.rest.api.entity.fastcafe_admin.Admin;
+import com.rest.api.entity.fastcafe_admin.Branch;
+import com.rest.api.entity.fastcafe_admin.BranchMachine;
 import com.rest.api.exception.AdminNotFoundException;
 import com.rest.api.exception.BranchNotFoundException;
 import com.rest.api.result.CommonResult;

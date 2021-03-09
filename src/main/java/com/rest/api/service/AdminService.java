@@ -1,8 +1,8 @@
 package com.rest.api.service;
 
-import com.rest.api.entity.fastcafe.Admin;
+import com.rest.api.entity.fastcafe_admin.Admin;
 import com.rest.api.exception.AdminNotFoundException;
-import com.rest.api.repository.fastcafe.AdminRepository;
+import com.rest.api.repository.fastcafe_admin.AdminRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
