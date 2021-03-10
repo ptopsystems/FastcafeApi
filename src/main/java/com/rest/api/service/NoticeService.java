@@ -24,6 +24,7 @@ public class NoticeService {
     public Page<Notice> findAll(int page, int size, Integer admin_id) {
         Page<Notice> notices = noticeRepository.findByStat("1000", PageRequest.of(page - 1, size, Sort.by(Sort.Direction.DESC, "id")));
         if(!notices.isEmpty()){
+            // 조회 여부 확인
             notices.map(notice -> {
                 notice.setIsRead(logService.findByNoticeIdAndAdminId(notice.getId(), admin_id).orElseGet(LogNoticeRead::new));
                 return notice;
@@ -33,13 +34,15 @@ public class NoticeService {
     }
 
     @Transactional
-    public Optional<Notice> findById(Integer notice_id, Integer admin_id) {
+    public Optional<Notice> readNotice(Integer notice_id, Integer admin_id) {
         Optional<Notice> notice = noticeRepository.findById(notice_id);
         if(notice.isPresent()){
+            // 조회수 증가
             Notice n = notice.get();
             n.setReadCnt(n.getReadCnt() + 1);
             noticeRepository.save(n);
 
+            // 조회 기록 확인
             LogNoticeRead logNoticeRead = logService.findByNoticeIdAndAdminId(notice_id, admin_id).orElseGet(LogNoticeRead::new);
 
             if(logNoticeRead.getId() != 0){
@@ -52,6 +55,7 @@ public class NoticeService {
                         .readCnt(1)
                         .build();
             }
+            // 조회 기록 저장
             logNoticeRead = logService.saveLogNoticeRead(logNoticeRead);
             n.setIsRead(logNoticeRead);
         }

@@ -31,9 +31,6 @@ public class NoticeController {
         Admin admin = adminService.fintByAccount(authentication.getName()).orElseThrow(AdminNotFoundException::new);
 
         Page<Notice> notices = noticeService.findAll(page, size, admin.getId());
-        if(notices.isEmpty()){
-            return CommonResult.Fail(400, "데이터가 존재하지 않습니다.");
-        }
         return DataResult.Success("notices", notices);
     }
 
@@ -44,7 +41,7 @@ public class NoticeController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Admin admin = adminService.fintByAccount(authentication.getName()).orElseThrow(AdminNotFoundException::new);
 
-        Notice notice = noticeService.findById(id, admin.getId()).orElseThrow(NoticeNotFoundException::new);
+        Notice notice = noticeService.readNotice(id, admin.getId()).orElseThrow(NoticeNotFoundException::new);
 
         return DataResult.Success("notice", notice);
     }

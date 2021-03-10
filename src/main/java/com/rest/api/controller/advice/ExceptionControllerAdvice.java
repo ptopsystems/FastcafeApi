@@ -23,7 +23,7 @@ public class ExceptionControllerAdvice {
         return CommonResult.Fail(500, "존재하지 않는 지점입니다.");
     }
     
-    @ExceptionHandler(NoticeNotFoundException.class)
+    @ExceptionHandler({NoticeNotFoundException.class, BoardNotFoundException.class})
     public CommonResult noticeNotFoundException(HttpServletRequest req, HttpServletResponse res, final NoticeNotFoundException e){
         return CommonResult.Fail(500, "존재하지 않는 게시물입니다.");
     }
