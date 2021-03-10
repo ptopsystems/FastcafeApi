@@ -1,9 +1,6 @@
 package com.rest.api.controller.advice;
 
-import com.rest.api.exception.AdminNotFoundException;
-import com.rest.api.exception.AuthenticationEntryPointException;
-import com.rest.api.exception.BranchNotFoundException;
-import com.rest.api.exception.JwtExpiredException;
+import com.rest.api.exception.*;
 import com.rest.api.result.CommonResult;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -24,6 +21,11 @@ public class ExceptionControllerAdvice {
     @ExceptionHandler(BranchNotFoundException.class)
     public CommonResult branchNotFoundException(HttpServletRequest req, HttpServletResponse res, final BranchNotFoundException e){
         return CommonResult.Fail(500, "존재하지 않는 지점입니다.");
+    }
+    
+    @ExceptionHandler(NoticeNotFoundException.class)
+    public CommonResult noticeNotFoundException(HttpServletRequest req, HttpServletResponse res, final NoticeNotFoundException e){
+        return CommonResult.Fail(500, "존재하지 않는 게시물입니다.");
     }
 
     @ExceptionHandler({AccessDeniedException.class, AuthenticationEntryPointException.class})

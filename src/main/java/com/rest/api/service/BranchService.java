@@ -27,3 +27,4 @@ public class BranchService {
         return branchMachineRepository.findByBranchIdAndStat(branch_id, "1000");
     }
 }
+

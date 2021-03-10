@@ -17,6 +17,6 @@ public class PayService {
     private final TotalPayDailyRepository totalPayDailyRepository;
 
     public Page<TotalPayDaily> totalPayDailes(int branch_id, Date startdate, Date enddate, int page, int size) {
-        return totalPayDailyRepository.findByBranchIdAndIndexRegdateBetween(branch_id, startdate, enddate, PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "indexRegdate")));
+        return totalPayDailyRepository.findByBranchIdAndIndexRegdateBetween(branch_id, startdate, enddate, PageRequest.of(page - 1, size, Sort.by(Sort.Direction.DESC, "indexRegdate")));
     }
 }
