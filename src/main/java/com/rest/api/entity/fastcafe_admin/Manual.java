@@ -32,8 +32,10 @@ public class Manual {
     private String version;
     private String stat;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Timestamp regdate;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Timestamp moddate;
 
     @Transient
