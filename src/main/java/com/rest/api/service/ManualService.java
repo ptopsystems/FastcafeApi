@@ -17,7 +17,7 @@ public class ManualService {
 
     @Transactional
     public Optional<Manual> get(int id) {
-        return manualRepository.findById(id);
+        return manualRepository.findByIdAndStat(id, "1000");
     }
 
     @Transactional

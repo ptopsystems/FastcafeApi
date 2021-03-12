@@ -1,6 +1,8 @@
 package com.rest.api.controller;
 
 import com.rest.api.entity.fastcafe_admin.Manual;
+import com.rest.api.entity.fastcafe_admin.dto.ManualDTO;
+import com.rest.api.entity.fastcafe_admin.dto.ManualDetailDTO;
 import com.rest.api.exception.ManualNotFoundException;
 import com.rest.api.result.CommonResult;
 import com.rest.api.result.DataResult;
@@ -22,9 +24,8 @@ public class ManualController {
 
     @GetMapping("/manual")
     public CommonResult manual(){
-
         List<Manual> manuals = manualService.list();
-        return DataResult.Success("manuals", manuals);
+        return DataResult.Success("manuals", manuals.stream().map(ManualDTO::new));
     }
 
 
@@ -32,9 +33,8 @@ public class ManualController {
     public CommonResult manualDetail(
             @PathVariable int id
     ){
-
         Manual manual = manualService.get(id).orElseThrow(ManualNotFoundException::new);
-        return DataResult.Success("manual", manual);
+        return DataResult.Success("manual", new ManualDetailDTO(manual));
     }
 
 }
