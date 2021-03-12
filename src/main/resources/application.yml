@@ -2,6 +2,10 @@ server:
   port: 8888
 
 spring:
+  servlet:
+    multipart:
+      max-file-size: 200MB
+      max-request-size: 200MB
   jpa:
     hibernate:
       ddl-auto: none
@@ -35,3 +39,14 @@ logging:
 jwt:
   secret:
     key: osteam##qovh
+
+cloud:
+  aws:
+    credentials:
+      access-key: AKIAJ7BWB56V3EHT2EDA
+      secret-key: 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
+      profile-name: fastcafeapi
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false

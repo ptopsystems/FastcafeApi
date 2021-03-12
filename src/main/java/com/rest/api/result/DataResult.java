@@ -15,18 +15,10 @@ public class DataResult extends CommonResult{
     private Map<String, Object> data = new HashMap<>();
     private static String DEAFULT_KEY = "result";
 
-    public DataResult(Object result){
-        this.data.put(DEAFULT_KEY, result);
-    }
-
     public DataResult addResult(String key, Object result){
         if(!StringUtils.hasText(key)) key = DEAFULT_KEY;
         this.data.put(key, result);
         return this;
-    }
-
-    public static DataResult Success(Object result){
-        return new DataResult(result);
     }
 
     public static DataResult Success(String key, Object result){

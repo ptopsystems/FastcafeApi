@@ -5,7 +5,6 @@ import com.rest.api.exception.AdminNotFoundException;
 import com.rest.api.result.CommonResult;
 import com.rest.api.result.DataResult;
 import com.rest.api.service.AdminService;
-import com.rest.api.service.BranchService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 public class AdminController {
 
     private final AdminService adminService;
-    private final BranchService branchService;
     private final PasswordEncoder passwordEncoder;
 
     @GetMapping("/admin")

@@ -1,7 +1,10 @@
 package com.rest.api.jwt;
 
 import com.rest.api.service.AdminService;
-import io.jsonwebtoken.*;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.env.Environment;
@@ -60,12 +63,6 @@ public class JwtTokenProvider {
         try{
             Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
             return !claims.getBody().getExpiration().before(new Date());
-        } catch (ExpiredJwtException e) {
-            request.setAttribute("expired", e.getMessage());
-            return false;
-        } catch (MalformedJwtException e) {
-            request.setAttribute("invalid", e.getMessage());
-            return false;
         } catch (Exception e) {
             return false;
         }

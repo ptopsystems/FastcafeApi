@@ -13,6 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 @RestControllerAdvice
 public class ExceptionControllerAdvice {
 
+    @ExceptionHandler(Exception.class)
+    public CommonResult excption(HttpServletRequest req, HttpServletResponse res, final Exception e){
+        return CommonResult.Fail(500, e.getMessage());
+    }
+
     @ExceptionHandler(AdminNotFoundException.class)
     public CommonResult adminNotFoundException(HttpServletRequest req, HttpServletResponse res, final AdminNotFoundException e){
         return CommonResult.Fail(500, "잘못된 아이디 혹은 암호입니다.");
@@ -37,4 +42,36 @@ public class ExceptionControllerAdvice {
     public CommonResult jwtExpiredException(HttpServletRequest req, HttpServletResponse res, final JwtExpiredException e){
         return CommonResult.Fail(500, "토큰이 만료되었습니다.");
     }
+
+    @ExceptionHandler(MultipartFileConvertException.class)
+    public CommonResult multipartFileConvertException(HttpServletRequest req, HttpServletResponse res, final MultipartFileConvertException e){
+        return CommonResult.Fail(500, "업로드시 오류가 발생되었습니다.");
+    }
+
+    @ExceptionHandler(FileNotFoundException.class)
+    public CommonResult multipartFileNotFoundException(HttpServletRequest req, HttpServletResponse res, final FileNotFoundException e){
+        return CommonResult.Fail(500, "파일을 찾을 수 없습니다.");
+    }
+
+    @ExceptionHandler(MultipartFileNotMathcedTypeException.class)
+    public CommonResult multipartFileNotMathcedTypeException(HttpServletRequest req, HttpServletResponse res, final MultipartFileNotMathcedTypeException e){
+        return CommonResult.Fail(500, "업로드 할 수 없는 파일 형식입니다.");
+    }
+
+    @ExceptionHandler(MultipartFileNotAllowedTypeException.class)
+    public CommonResult multipartFileNotAllowedTypeException(HttpServletRequest req, HttpServletResponse res, final MultipartFileNotAllowedTypeException e){
+        return CommonResult.Fail(500, "업로드 할 수 없는 파일 형식입니다.");
+    }
+
+    @ExceptionHandler(MultipartFileNotAllowedFileNameException.class)
+    public CommonResult multipartFileNotAllowedFileNameException(HttpServletRequest req, HttpServletResponse res, final MultipartFileNotAllowedFileNameException e){
+        return CommonResult.Fail(500, "잘못된 파일명입니다.");
+    }
+
+    @ExceptionHandler(ManualNotFoundException.class)
+    public CommonResult manualNotFoundException(HttpServletRequest req, HttpServletResponse res, final ManualNotFoundException e){
+        return CommonResult.Fail(500, "존재하지 않는 매뉴얼입니다.");
+    }
+
+
 }
