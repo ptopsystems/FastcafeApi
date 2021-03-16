@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -21,35 +20,33 @@ import java.util.HashMap;
 @RequiredArgsConstructor
 @PropertySource(value = "classpath:application.yml")
 @EnableJpaRepositories(
-        entityManagerFactoryRef = "fastcafeAdminEntityManager",
-        transactionManagerRef = "fastcafeAdminTransactionManager",
-        basePackages = {"com.rest.api.repository.fastcafe_admin"}
+        entityManagerFactoryRef = "fastCafeStatEntityManager",
+        transactionManagerRef = "fastCafeStatTransactionManager",
+        basePackages = {"com.rest.api.repository.fastcafe_stat"}
 )
 
-public class FastcafeAdminDbConfig {
+public class FastCafeStatDbConfig {
 
     private final Environment env;
 
-    @Primary
-    @Bean(name = "fastcafeAdminDataSource")
-    @ConfigurationProperties(prefix = "datasource.fastcafe-admin")
-    public DataSource fastcafeAdminDataSource(){
+    @Bean(name = "fastCafeStatDataSource")
+    @ConfigurationProperties(prefix = "datasource.fastcafe-stat")
+    public DataSource fastCafeStatDataSource(){
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setUrl(env.getProperty("datasource.fastcafe-admin.url"));
-        dataSource.setUsername(env.getProperty("datasource.fastcafe-admin.username"));
-        dataSource.setPassword(env.getProperty("datasource.fastcafe-admin.password"));
-        dataSource.setDriverClassName(env.getProperty("datasource.fastcafe-admin.driver-class-name"));
+        dataSource.setUrl(env.getProperty("datasource.fastcafe-stat.url"));
+        dataSource.setUsername(env.getProperty("datasource.fastcafe-stat.username"));
+        dataSource.setPassword(env.getProperty("datasource.fastcafe-stat.password"));
+        dataSource.setDriverClassName(env.getProperty("datasource.fastcafe-stat.driver-class-name"));
 
         return dataSource;
     }
 
-    @Primary
     @Bean
-    public LocalContainerEntityManagerFactoryBean fastcafeAdminEntityManager(){
+    public LocalContainerEntityManagerFactoryBean fastCafeStatEntityManager(){
         LocalContainerEntityManagerFactoryBean entityManager = new LocalContainerEntityManagerFactoryBean();
-        entityManager.setDataSource(fastcafeAdminDataSource());
-        entityManager.setPackagesToScan("com.rest.api.entity.fastcafe_admin");
-        entityManager.setPersistenceUnitName("fastcafeadmin");
+        entityManager.setDataSource(fastCafeStatDataSource());
+        entityManager.setPackagesToScan("com.rest.api.entity.fastcafe_stat");
+        entityManager.setPersistenceUnitName("fastcafestat");
 
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         entityManager.setJpaVendorAdapter(vendorAdapter);
@@ -64,12 +61,11 @@ public class FastcafeAdminDbConfig {
         return entityManager;
     }
 
-    @Primary
     @Bean
-    public PlatformTransactionManager fastcafeAdminTransactionManager(){
+    public PlatformTransactionManager fastCafeStatTransactionManager(){
 
         JpaTransactionManager transactionManager = new JpaTransactionManager();
-        transactionManager.setEntityManagerFactory(fastcafeAdminEntityManager().getObject());
+        transactionManager.setEntityManagerFactory(fastCafeStatEntityManager().getObject());
         return transactionManager;
     }
 }

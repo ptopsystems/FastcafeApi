@@ -1,6 +1,6 @@
 package com.rest.api.entity.fastcafe_admin;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,23 +14,22 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "total_pay_daily")
-public class TotalPayDaily {
-
+@Table(name = "van_pay")
+public class VanPay {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private int id;
 
-    @Column(name = "branch_id")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private int branchId;
-    @Column(name = "branch_machine_id")
+    private int branch_id;
     private int branch_machine_id;
-
     private Date indexRegdate;
+    private String cardNum;
+    private String approvalNo;
     private int payMoney;
-    private int payCnt;
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Timestamp paydate;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Timestamp regdate;
+
 }

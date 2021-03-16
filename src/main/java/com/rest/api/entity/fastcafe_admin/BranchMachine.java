@@ -22,6 +22,7 @@ public class BranchMachine {
     @Column(name = "branch_id")
     private int branchId;
     private String machineType;
+    private String machineCompany;
     private String machineName;
     private String machinePk;
     private String deviceNo;
