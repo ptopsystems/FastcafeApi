@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class StatVanPayWeeklyTotalStatDTO {
+    private String baseWeek;
     private String periodDays;
     private Long currMoney;
     private Long currCnt;

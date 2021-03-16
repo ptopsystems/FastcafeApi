@@ -59,9 +59,11 @@ public class StatService {
         }
 
         List<StatVanPayWeeklyTotalStatDTO> stats = new LinkedList<>();
+        int baseWeek = 1;
         if(past.size() > current.size()){
             for(IStatVanPayWeeklyGroupDTO p : past){
                 StatVanPayWeeklyTotalStatDTO dto = new StatVanPayWeeklyTotalStatDTO();
+                dto.setBaseWeek(baseWeek++ + "주");
                 dto.setPastMoney(p.getPayMoney());
                 dto.setPastCnt(p.getPayCnt());
                 stats.add(dto);
@@ -76,6 +78,7 @@ public class StatService {
         } else {
             for(IStatVanPayWeeklyGroupDTO c : current){
                 StatVanPayWeeklyTotalStatDTO dto = new StatVanPayWeeklyTotalStatDTO();
+                dto.setBaseWeek(baseWeek++ + "주");
                 dto.setPeriodDays(c.getPeriodDays());
                 dto.setCurrMoney(c.getPayMoney());
                 dto.setCurrCnt(c.getPayCnt());
