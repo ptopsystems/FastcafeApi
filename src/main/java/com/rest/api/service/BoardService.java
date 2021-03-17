@@ -19,7 +19,7 @@ public class BoardService {
     private final BoardRepository boardRepository;
 
     @Transactional
-    public Page<Board> findAll(int branch_id, int admin_id, String stat, int page, int size) {
+    public Page<Board> listWithPagable(int branch_id, int admin_id, String stat, int page, int size) {
         Page<Board> boards = null;
         if(StringUtils.hasText(stat)){
             boards = boardRepository.findByBranchIdAndAdminIdAndStat(branch_id, admin_id, stat, PageRequest.of(page - 1, size, Sort.by(Sort.Direction.DESC, "id")));

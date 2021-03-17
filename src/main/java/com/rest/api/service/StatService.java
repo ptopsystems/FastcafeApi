@@ -28,9 +28,10 @@ public class StatService {
 
     @Transactional
     public List<IStatVanPayDailyGroupDTO> listStatVanPayDailyGroupByBranchId(int branch_id, Date startdate, Date enddate) {
-        return statVanPayDailyRepository.groupByBranchId(branch_id, startdate, enddate);
+        return statVanPayDailyRepository.listGroupByBranchId(branch_id, startdate, enddate);
     }
 
+    @Transactional
     public List<StatVanPayWeeklyTotalStatDTO> listStatVanPayWeeklyGroupByBranchId(int branch_id, String baseYear, String baseMonth, String machineType, int branch_machine_id){
 
         String pastBaseYear = "";
@@ -47,15 +48,15 @@ public class StatService {
         List<IStatVanPayWeeklyGroupDTO> past = null;
         if(branch_machine_id == 0){
             if(StringUtils.hasText(machineType)){
-                current = statVanPayWeeklyRepository.groupByBaseWeek(branch_id, baseYear, baseMonth, machineType);
-                past = statVanPayWeeklyRepository.groupByBaseWeek(branch_id, pastBaseYear, pastBaseMonth, machineType);
+                current = statVanPayWeeklyRepository.listGroupByBaseWeek(branch_id, baseYear, baseMonth, machineType);
+                past = statVanPayWeeklyRepository.listGroupByBaseWeek(branch_id, pastBaseYear, pastBaseMonth, machineType);
             } else {
-                current = statVanPayWeeklyRepository.groupByBaseWeek(branch_id, baseYear, baseMonth);
-                past = statVanPayWeeklyRepository.groupByBaseWeek(branch_id, pastBaseYear, pastBaseMonth);
+                current = statVanPayWeeklyRepository.listGroupByBaseWeek(branch_id, baseYear, baseMonth);
+                past = statVanPayWeeklyRepository.listGroupByBaseWeek(branch_id, pastBaseYear, pastBaseMonth);
             }
         } else {
-            current = statVanPayWeeklyRepository.groupByBaseWeek(branch_id, baseYear, baseMonth, branch_machine_id);
-            past = statVanPayWeeklyRepository.groupByBaseWeek(branch_id, pastBaseYear, pastBaseMonth, branch_machine_id);
+            current = statVanPayWeeklyRepository.listGroupByBaseWeek(branch_id, baseYear, baseMonth, branch_machine_id);
+            past = statVanPayWeeklyRepository.listGroupByBaseWeek(branch_id, pastBaseYear, pastBaseMonth, branch_machine_id);
         }
 
         List<StatVanPayWeeklyTotalStatDTO> stats = new LinkedList<>();
@@ -95,6 +96,7 @@ public class StatService {
         return stats;
     }
 
+    @Transactional
     public List<StatVanPayMonthlyTotalStatDTO> listStatVanPayMonthlyGroupByBranchId(int branch_id, String baseYear, String baseMonth, String machineType, int branch_machine_id) {
         String pastBaseYear = String.valueOf(Integer.parseInt(baseYear) - 1);
 
@@ -147,5 +149,17 @@ public class StatService {
         }
 
         return stats;
+    }
+
+    public IStatVanPayDailyGroupDTO getStatVanPayDailyGroupByBranchId(int branch_id, Date startdate, Date enddate) {
+        return statVanPayDailyRepository.getGroupByBranchId(branch_id, startdate, enddate);
+    }
+
+    public IStatVanPayWeeklyGroupDTO getStatVanPayWeeklyGroupByBranchId(int branch_id, Date basedate) {
+        return statVanPayWeeklyRepository.getGroupByBranchId(branch_id, basedate);
+    }
+
+    public IStatVanPayDailyGroupDTO getStatVanPayDaily(int branch_id, Date basedate) {
+        return statVanPayDailyRepository.findByBranchIdAndIndexRegdate(branch_id, basedate);
     }
 }

@@ -19,8 +19,21 @@ public interface StatVanPayDailyRepository extends JpaRepository<StatVanPayDaily
             "where d.branch_id=:branch_id and d.indexRegdate between :startdate and :enddate " +
             "group by d.indexRegdate " +
             "order by d.indexRegdate desc ", nativeQuery = true)
-    List<IStatVanPayDailyGroupDTO> groupByBranchId(
+    List<IStatVanPayDailyGroupDTO> listGroupByBranchId(
             @Param(value = "branch_id") int branch_id
             , @Param(value = "startdate") Date startdate
             , @Param(value = "enddate") Date enddate);
+
+    @Query(value = "select d.indexRegdate, sum(d.payMoney) as payMoney, sum(d.payCnt) as payCnt " +
+            "from stat_van_pay_daily d " +
+            "where d.branch_id=:branch_id and d.indexRegdate between :startdate and :enddate ", nativeQuery = true)
+    IStatVanPayDailyGroupDTO getGroupByBranchId(
+            @Param(value = "branch_id") int branch_id
+            , @Param(value = "startdate") Date startdate
+            , @Param(value = "enddate") Date enddate);
+
+    @Query(value = "select d.indexRegdate, sum(d.payMoney) as payMoney, sum(d.payCnt) as payCnt " +
+            "from stat_van_pay_daily d " +
+            "where d.branch_id=:branch_id and d.indexRegdate=:indexRegdate ", nativeQuery = true)
+    IStatVanPayDailyGroupDTO findByBranchIdAndIndexRegdate(int branch_id, Date indexRegdate);
 }

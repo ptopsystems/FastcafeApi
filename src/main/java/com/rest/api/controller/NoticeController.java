@@ -2,6 +2,7 @@ package com.rest.api.controller;
 
 import com.rest.api.entity.fastcafe_admin.Admin;
 import com.rest.api.entity.fastcafe_admin.Notice;
+import com.rest.api.entity.fastcafe_admin.dto.NoticeDTO;
 import com.rest.api.exception.AdminNotFoundException;
 import com.rest.api.exception.NoticeNotFoundException;
 import com.rest.api.result.CommonResult;
@@ -30,8 +31,11 @@ public class NoticeController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Admin admin = adminService.fintByAccount(authentication.getName()).orElseThrow(AdminNotFoundException::new);
 
-        Page<Notice> notices = noticeService.findAll(page, size, admin.getId());
-        return DataResult.Success("notices", notices);
+        Page<Notice> notices = noticeService.listWithPagable(page, size, admin.getId());
+        return DataResult.Success("notices", notices.getContent().stream().map(NoticeDTO::new))
+                .addResult("totalPages", notices.getTotalPages())
+                .addResult("page", page)
+                .addResult("size", size);
     }
 
     @GetMapping("/notice/{id}")

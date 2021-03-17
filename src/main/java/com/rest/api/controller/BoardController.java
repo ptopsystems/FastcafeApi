@@ -2,6 +2,7 @@ package com.rest.api.controller;
 
 import com.rest.api.entity.fastcafe_admin.Admin;
 import com.rest.api.entity.fastcafe_admin.Board;
+import com.rest.api.entity.fastcafe_admin.dto.BoardDTO;
 import com.rest.api.exception.AdminNotFoundException;
 import com.rest.api.exception.BoardNotFoundException;
 import com.rest.api.result.CommonResult;
@@ -39,9 +40,12 @@ public class BoardController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Admin admin = adminService.fintByAccount(authentication.getName()).orElseThrow(AdminNotFoundException::new);
 
-        Page<Board> boards = boardService.findAll(admin.getBranchId(), admin.getId(), stat, page, size);
+        Page<Board> boards = boardService.listWithPagable(admin.getBranchId(), admin.getId(), stat, page, size);
 
-        return DataResult.Success("boards", boards);
+        return DataResult.Success("boards", boards.getContent().stream().map(BoardDTO::new))
+                .addResult("totalPages", boards.getTotalPages())
+                .addResult("page", page)
+                .addResult("size", size);
     }
 
     /**

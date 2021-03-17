@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.sql.Date;
 import java.util.List;
 
 public interface StatVanPayWeeklyRepository extends JpaRepository<StatVanPayWeekly, Integer> {
@@ -16,7 +17,7 @@ public interface StatVanPayWeeklyRepository extends JpaRepository<StatVanPayWeek
             "   and w.baseYear=:baseYear " +
             "   and w.baseMonth=:baseMonth " +
             "group by w.baseWeek ", nativeQuery = true)
-    List<IStatVanPayWeeklyGroupDTO> groupByBaseWeek(
+    List<IStatVanPayWeeklyGroupDTO> listGroupByBaseWeek(
             @Param("branch_id") int branch_id
             , @Param("baseYear") String baseYear
             , @Param("baseMonth") String baseMonth
@@ -30,7 +31,7 @@ public interface StatVanPayWeeklyRepository extends JpaRepository<StatVanPayWeek
             "   and w.baseMonth=:baseMonth " +
             "   and m.machineType=:machineType " +
             "group by w.baseWeek ", nativeQuery = true)
-    List<IStatVanPayWeeklyGroupDTO> groupByBaseWeek(
+    List<IStatVanPayWeeklyGroupDTO> listGroupByBaseWeek(
             @Param("branch_id") int branch_id
             , @Param("baseYear") String baseYear
             , @Param("baseMonth") String baseMonth
@@ -42,8 +43,14 @@ public interface StatVanPayWeeklyRepository extends JpaRepository<StatVanPayWeek
             "   and w.baseYear=:baseYear " +
             "   and w.baseMonth=:baseMonth " +
             "group by w.baseWeek ", nativeQuery = true)
-    List<IStatVanPayWeeklyGroupDTO> groupByBaseWeek(
+    List<IStatVanPayWeeklyGroupDTO> listGroupByBaseWeek(
             @Param("branch_id") int branch_id
             , @Param("baseYear") String baseYear
             , @Param("baseMonth") String baseMonth);
+
+    @Query(value = "select w.baseWeek, concat(w.startdate, ' ~ ', w.enddate) as periodDays, sum(w.payMoney) as payMoney, sum(w.payCnt) as payCnt " +
+            "from stat_van_pay_weekly w " +
+            "where w.branch_id=:branch_id " +
+            "   and :basedate between w.startdate and w.enddate ", nativeQuery = true)
+    IStatVanPayWeeklyGroupDTO getGroupByBranchId(int branch_id, Date basedate);
 }
