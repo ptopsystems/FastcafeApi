@@ -72,7 +72,8 @@ public class StatService {
 
             for(int i=0; i< current.size(); i++){
                 StatVanPayWeeklyTotalStatDTO stat = stats.get(i);
-                stat.setPeriodDays(current.get(i).getPeriodDays());
+                stat.setStartdate(current.get(i).getStartdate());
+                stat.setEnddate(current.get(i).getEnddate());
                 stat.setCurrMoney(current.get(i).getPayMoney());
                 stat.setCurrCnt(current.get(i).getPayCnt());
             }
@@ -80,7 +81,8 @@ public class StatService {
             for(IStatVanPayWeeklyGroupDTO c : current){
                 StatVanPayWeeklyTotalStatDTO dto = new StatVanPayWeeklyTotalStatDTO();
                 dto.setBaseWeek(baseWeek++ + "주");
-                dto.setPeriodDays(c.getPeriodDays());
+                dto.setStartdate(c.getStartdate());
+                dto.setEnddate(c.getEnddate());
                 dto.setCurrMoney(c.getPayMoney());
                 dto.setCurrCnt(c.getPayCnt());
                 stats.add(dto);
