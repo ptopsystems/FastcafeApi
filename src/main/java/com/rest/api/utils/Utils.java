@@ -1,6 +1,5 @@
 package com.rest.api.utils;
 
-import com.rest.api.exception.FileNotFoundException;
 import com.rest.api.exception.MultipartFileNotAllowedTypeException;
 import com.rest.api.exception.MultipartFileNotMathcedTypeException;
 import org.springframework.web.multipart.MultipartFile;
@@ -9,10 +8,10 @@ public class Utils {
 
     public static boolean uploadFileCheck(MultipartFile file){
         //
-        if(file.isEmpty()) throw new FileNotFoundException();
+        if(file == null || file.isEmpty()) return false;
+
         String fileName = file.getOriginalFilename();
         String fileExtensionName = fileName.substring( fileName.lastIndexOf( "." ) ).toLowerCase();
-        long fileSize = file.getSize();
         String fileContentType = file.getContentType();
 
         if("plain/text".equalsIgnoreCase(fileContentType)){

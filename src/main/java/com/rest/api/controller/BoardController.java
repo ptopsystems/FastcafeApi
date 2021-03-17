@@ -9,18 +9,22 @@ import com.rest.api.result.CommonResult;
 import com.rest.api.result.DataResult;
 import com.rest.api.service.AdminService;
 import com.rest.api.service.BoardService;
+import com.rest.api.utils.S3Uploader;
+import com.rest.api.utils.Utils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(value = "/v1")
 public class BoardController {
 
+    private final S3Uploader s3Uploader;
     private final BoardService boardService;
     private final AdminService adminService;
 
@@ -67,11 +71,11 @@ public class BoardController {
     }
 
     /**
-     * 문의내역 생성
+     * 문의 내역 생성
      * @param title
      * @param content
      * @param accidentTime
-     * @param attachImgUrl
+     * @param file
      * @return
      */
     @PostMapping("/board")
@@ -79,13 +83,23 @@ public class BoardController {
             @RequestParam String title,
             @RequestParam String content,
             @RequestParam String accidentTime,
-            @RequestParam(required = false) String attachImgUrl
-    ){
+            @RequestParam(required = false) MultipartFile file
+            ){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Admin admin = adminService.fintByAccount(authentication.getName()).orElseThrow(AdminNotFoundException::new);
 
         if(!StringUtils.hasText(title) || !StringUtils.hasText(content) || !StringUtils.hasText(accidentTime)){
             return CommonResult.Fail(400, "필드를 모두 입력해 주세요.");
+        }
+
+        String fileUrl = null;
+        try {
+            if(Utils.uploadFileCheck(file)){
+                fileUrl = s3Uploader.upload(file);
+            }
+        } catch(Exception e){
+            e.printStackTrace();
+            return CommonResult.Fail(500, "업로드 중 오류가 발생되었습니다.");
         }
 
         Board board = Board.builder()
@@ -94,7 +108,7 @@ public class BoardController {
                 .title(title)
                 .content(content)
                 .accidentTime(accidentTime)
-                .attachImgUrl(attachImgUrl)
+                .attachImgUrl(fileUrl)
                 .stat("1002")
                 .build();
         board = boardService.save(board);
@@ -106,12 +120,12 @@ public class BoardController {
     }
 
     /**
-     * 문의내역 수정
+     * 문의 수정
      * @param id
      * @param title
      * @param content
      * @param accidentTime
-     * @param attachImgUrl
+     * @param file
      * @return
      */
     @PatchMapping("/board/{id}")
@@ -120,7 +134,7 @@ public class BoardController {
             @RequestParam String title,
             @RequestParam String content,
             @RequestParam String accidentTime,
-            @RequestParam(required = false) String attachImgUrl
+            @RequestParam(required = false) MultipartFile file
     ){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Admin admin = adminService.fintByAccount(authentication.getName()).orElseThrow(AdminNotFoundException::new);
@@ -133,11 +147,22 @@ public class BoardController {
         if(!"1002".equals(board.getStat())){
             return CommonResult.Fail(500, "수정이 불가능합니다.");
         }
+
         board = board
                 .withTitle(title)
                 .withContent(content)
-                .withAccidentTime(accidentTime)
-                .withAttachImgUrl(attachImgUrl);
+                .withAccidentTime(accidentTime);
+
+        String fileUrl = null;
+        try {
+            if(Utils.uploadFileCheck(file)){
+                fileUrl = s3Uploader.upload(file);
+            }
+        } catch(Exception e){
+            e.printStackTrace();
+            return CommonResult.Fail(500, "업로드 중 오류가 발생되었습니다.");
+        }
+        if(StringUtils.hasText(fileUrl)) board = board.withAttachImgUrl(fileUrl);
 
         board = boardService.save(board);
         if(board == null){
