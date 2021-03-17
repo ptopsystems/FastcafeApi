@@ -21,8 +21,8 @@ public class NoticeService {
 
 
     @Transactional
-    public Page<Notice> listWithPagable(int page, int size, Integer admin_id) {
-        Page<Notice> notices = noticeRepository.findByStat("1000", PageRequest.of(page - 1, size, Sort.by(Sort.Direction.DESC, "id")));
+    public Page<Notice> listWithPagable(String searchValue, int page, int size, Integer admin_id) {
+        Page<Notice> notices = noticeRepository.findByStat(searchValue,"1000", PageRequest.of(page - 1, size, Sort.by(Sort.Direction.DESC, "id")));
         if(!notices.isEmpty()){
             // 조회 여부 확인
             notices.map(notice -> {

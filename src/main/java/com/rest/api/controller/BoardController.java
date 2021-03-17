@@ -33,6 +33,7 @@ public class BoardController {
      */
     @GetMapping("/board")
     public CommonResult board(
+        @RequestParam(defaultValue = "") String searchValue,
         @RequestParam(defaultValue = "") String stat,
         @RequestParam(defaultValue = "1") int page,
         @RequestParam(defaultValue = "10") int size
@@ -40,7 +41,7 @@ public class BoardController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Admin admin = adminService.fintByAccount(authentication.getName()).orElseThrow(AdminNotFoundException::new);
 
-        Page<Board> boards = boardService.listWithPagable(admin.getBranchId(), admin.getId(), stat, page, size);
+        Page<Board> boards = boardService.listWithPagable(admin.getBranchId(), admin.getId(), searchValue, stat, page, size);
 
         return DataResult.Success("boards", boards.getContent().stream().map(BoardDTO::new))
                 .addResult("totalPages", boards.getTotalPages())

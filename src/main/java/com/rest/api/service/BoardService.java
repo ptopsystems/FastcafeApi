@@ -19,12 +19,20 @@ public class BoardService {
     private final BoardRepository boardRepository;
 
     @Transactional
-    public Page<Board> listWithPagable(int branch_id, int admin_id, String stat, int page, int size) {
+    public Page<Board> listWithPagable(int branch_id, int admin_id, String searchValue, String stat, int page, int size) {
         Page<Board> boards = null;
-        if(StringUtils.hasText(stat)){
-            boards = boardRepository.findByBranchIdAndAdminIdAndStat(branch_id, admin_id, stat, PageRequest.of(page - 1, size, Sort.by(Sort.Direction.DESC, "id")));
+        if(StringUtils.hasText(searchValue)){
+            if(StringUtils.hasText(stat)){
+                boards = boardRepository.findByBranchIdAndAdminIdAndStat(branch_id, admin_id, searchValue, stat, PageRequest.of(page - 1, size, Sort.by(Sort.Direction.DESC, "id")));
+            } else {
+                boards = boardRepository.findByBranchIdAndAdminIdAndStatNot(branch_id, admin_id, searchValue, "9001", PageRequest.of(page - 1, size, Sort.by(Sort.Direction.DESC, "id")));
+            }
         } else {
-            boards = boardRepository.findByBranchIdAndAdminIdAndStatNot(branch_id, admin_id, "9001", PageRequest.of(page - 1, size, Sort.by(Sort.Direction.DESC, "id")));
+            if(StringUtils.hasText(stat)){
+                boards = boardRepository.findByBranchIdAndAdminIdAndStat(branch_id, admin_id, stat, PageRequest.of(page - 1, size, Sort.by(Sort.Direction.DESC, "id")));
+            } else {
+                boards = boardRepository.findByBranchIdAndAdminIdAndStatNot(branch_id, admin_id, "9001", PageRequest.of(page - 1, size, Sort.by(Sort.Direction.DESC, "id")));
+            }
         }
         return boards;
     }

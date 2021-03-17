@@ -56,10 +56,10 @@ public class DashBoardContoller {
         }
 
         //공지사항 3개
-        Page<Notice> notices = noticeService.listWithPagable(1, 3, admin.getId());
+        Page<Notice> notices = noticeService.listWithPagable(null,1, 3, admin.getId());
 
         // 문의 3개
-        Page<Board> boards = boardService.listWithPagable(admin.getBranchId(), admin.getId(), null, 1, 3);
+        Page<Board> boards = boardService.listWithPagable(admin.getBranchId(), admin.getId(), null, null, 1, 3);
 
 
         return DataResult.Success("month", month)

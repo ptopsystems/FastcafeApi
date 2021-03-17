@@ -25,13 +25,14 @@ public class NoticeController {
 
     @GetMapping("/notice")
     private CommonResult notice(
+            @RequestParam(defaultValue = "") String searchValue,
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int size
     ){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Admin admin = adminService.fintByAccount(authentication.getName()).orElseThrow(AdminNotFoundException::new);
 
-        Page<Notice> notices = noticeService.listWithPagable(page, size, admin.getId());
+        Page<Notice> notices = noticeService.listWithPagable(searchValue, page, size, admin.getId());
         return DataResult.Success("notices", notices.getContent().stream().map(NoticeDTO::new))
                 .addResult("totalPages", notices.getTotalPages())
                 .addResult("page", page)
