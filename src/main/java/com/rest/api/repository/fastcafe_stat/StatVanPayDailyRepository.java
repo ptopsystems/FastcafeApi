@@ -10,30 +10,30 @@ import java.sql.Date;
 import java.util.List;
 
 public interface StatVanPayDailyRepository extends JpaRepository<StatVanPayDaily, Integer> {
-    @Query(value = "select max(indexRegdate) from stat_van_pay_daily where branch_id=:branch_id", nativeQuery = true)
+    @Query(value = "select max(d.indexRegdate) from StatVanPayDaily d where d.branchId=:branch_id")
     Date getMaxIndexRegdate(@Param(value = "branch_id") int branch_id);
 
 
     @Query(value = "select d.indexRegdate, sum(d.payMoney) as payMoney, sum(d.payCnt) as payCnt " +
-            "from stat_van_pay_daily d " +
-            "where d.branch_id=:branch_id and d.indexRegdate between :startdate and :enddate " +
+            "from StatVanPayDaily d " +
+            "where d.branchId=:branch_id and d.indexRegdate between :startdate and :enddate " +
             "group by d.indexRegdate " +
-            "order by d.indexRegdate desc ", nativeQuery = true)
+            "order by d.indexRegdate desc ")
     List<IStatVanPayDailyGroupDTO> listGroupByBranchId(
             @Param(value = "branch_id") int branch_id
             , @Param(value = "startdate") Date startdate
             , @Param(value = "enddate") Date enddate);
 
     @Query(value = "select d.indexRegdate, sum(d.payMoney) as payMoney, sum(d.payCnt) as payCnt " +
-            "from stat_van_pay_daily d " +
-            "where d.branch_id=:branch_id and d.indexRegdate between :startdate and :enddate ", nativeQuery = true)
+            "from StatVanPayDaily d " +
+            "where d.branchId=:branch_id and d.indexRegdate between :startdate and :enddate ")
     IStatVanPayDailyGroupDTO getGroupByBranchId(
             @Param(value = "branch_id") int branch_id
             , @Param(value = "startdate") Date startdate
             , @Param(value = "enddate") Date enddate);
 
     @Query(value = "select d.indexRegdate, sum(d.payMoney) as payMoney, sum(d.payCnt) as payCnt " +
-            "from stat_van_pay_daily d " +
-            "where d.branch_id=:branch_id and d.indexRegdate=:indexRegdate ", nativeQuery = true)
+            "from StatVanPayDaily d " +
+            "where d.branchId=:branch_id and d.indexRegdate=:indexRegdate ")
     IStatVanPayDailyGroupDTO findByBranchIdAndIndexRegdate(int branch_id, Date indexRegdate);
 }
