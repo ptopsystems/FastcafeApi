@@ -27,6 +27,7 @@ public class Branch {
     private Date opendate;
     private Date closedate;
     private String ownerName;
+    private String ownerTel;
     private String businessLicense;
     private String address;
     private String addressDetail;
