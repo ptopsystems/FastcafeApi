@@ -15,11 +15,15 @@ public class ExceptionControllerAdvice {
 
     @ExceptionHandler(Exception.class)
     public CommonResult excption(HttpServletRequest req, HttpServletResponse res, final Exception e){
+        System.out.println("#### EXCEPTION ####");
+        e.printStackTrace();
+        System.out.println(e.getLocalizedMessage());
         return CommonResult.Fail(500, e.getMessage());
     }
 
     @ExceptionHandler(AdminNotFoundException.class)
     public CommonResult adminNotFoundException(HttpServletRequest req, HttpServletResponse res, final AdminNotFoundException e){
+        e.printStackTrace();
         return CommonResult.Fail(500, "잘못된 아이디 혹은 암호입니다.");
     }
 

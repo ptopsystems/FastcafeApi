@@ -37,6 +37,7 @@ public class Board {
     @Column(name = "answer_member_id")
     private int answerMemberId;
     private String answer;
+    private String answerFileUrl;
     private Timestamp answerdate;
     private String stat;
     @CreationTimestamp
