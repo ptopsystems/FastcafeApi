@@ -88,8 +88,11 @@ public class BoardController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Admin admin = adminService.fintByAccount(authentication.getName()).orElseThrow(AdminNotFoundException::new);
 
-        if(!StringUtils.hasText(title) || !StringUtils.hasText(content) || !StringUtils.hasText(accidentTime)){
-            return CommonResult.Fail(400, "필드를 모두 입력해 주세요.");
+        if(!StringUtils.hasText(title)) {
+            return CommonResult.Fail(400, "제목을 입력해 주세요.");
+        }
+        if(!StringUtils.hasText(content)) {
+            return CommonResult.Fail(400, "문의내용을 입력해 주세요.");
         }
 
         String fileUrl = null;
