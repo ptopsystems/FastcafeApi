@@ -21,8 +21,9 @@ public class Notice {
     private int id;
 
     private String title;
-    private String content;
+    private String contents;
     private String attachFileUrl;
+    private String originFileName;
     private int readCnt;
     private String stat;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
