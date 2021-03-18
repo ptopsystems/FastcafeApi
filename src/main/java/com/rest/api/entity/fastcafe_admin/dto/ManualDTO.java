@@ -15,7 +15,6 @@ public class ManualDTO {
     public ManualDTO(Manual manual){
         this.id = manual.getId();
         this.title = manual.getTitle();
-        this.machineName = manual.getMachineName();
         this.version = manual.getVersion();
     }
 }

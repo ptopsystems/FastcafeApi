@@ -5,9 +5,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication(exclude = {
         DataSourceAutoConfiguration.class,
@@ -19,6 +16,5 @@ public class FastCafeApiApplication {
     public static void main(String[] args) {
         SpringApplication.run(FastCafeApiApplication.class, args);
     }
-
 
 }

@@ -26,7 +26,6 @@ public class Manual {
     private int id;
 
     private String title;
-    private String machineName;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String attachFileUrl;
     private String version;
