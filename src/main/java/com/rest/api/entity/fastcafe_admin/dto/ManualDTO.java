@@ -9,7 +9,6 @@ import lombok.Setter;
 public class ManualDTO {
     private int id;
     private String title;
-    private String machineName;
     private String version;
 
     public ManualDTO(Manual manual){
