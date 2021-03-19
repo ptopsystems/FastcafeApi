@@ -42,10 +42,10 @@ public class PayController {
         Date enddate = null;
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
-            if(StringUtils.isNullOrEmpty(startdateStr)) {
+            if(!StringUtils.isNullOrEmpty(startdateStr)) {
                 startdate = new Date( sdf.parse( startdateStr ).getTime() );
             }
-            if(StringUtils.isNullOrEmpty(enddateStr)) {
+            if(!StringUtils.isNullOrEmpty(enddateStr)) {
                 enddate = new Date( sdf.parse( enddateStr ).getTime() );
             }
         } catch (Exception e) {
