@@ -1,5 +1,6 @@
 package com.rest.api.controller;
 
+import com.amazonaws.util.StringUtils;
 import com.rest.api.entity.fastcafe_admin.Admin;
 import com.rest.api.entity.fastcafe_admin.VanPay;
 import com.rest.api.entity.fastcafe_admin.dto.VanPayDTO;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 @RestController
 @RequestMapping("/v1")
@@ -29,13 +31,27 @@ public class PayController {
 
     @GetMapping("/pay")
     public CommonResult pay(
-            @RequestParam(required = false) Date startdate
-            , @RequestParam(required = false) Date enddate
+            @RequestParam(required = false) String startdateStr
+            , @RequestParam(required = false) String enddateStr
             , @RequestParam(defaultValue = "") String machineType
             , @RequestParam(defaultValue = "0") Integer branch_machine_id
             , @RequestParam(defaultValue = "1") int page
             , @RequestParam(defaultValue = "10") int size
     ){
+        Date startdate = null;
+        Date enddate = null;
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+            if(StringUtils.isNullOrEmpty(startdateStr)) {
+                startdate = new Date( sdf.parse( startdateStr ).getTime() );
+            }
+            if(StringUtils.isNullOrEmpty(enddateStr)) {
+                enddate = new Date( sdf.parse( enddateStr ).getTime() );
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Admin admin = adminService.fintByAccount(authentication.getName()).orElseThrow(AdminNotFoundException::new);
         if(startdate == null || enddate == null){
