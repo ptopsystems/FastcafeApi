@@ -12,7 +12,7 @@ import java.util.Optional;
 public interface BoardRepository extends JpaRepository<Board, Integer> {
     Page<Board> findByBranchIdAndAdminIdAndStat(int branch_id, int admin_id, String stat, Pageable pageable);
     @Query(value = "select b from Board b where b.branchId=:branch_id and b.adminId=:admin_id " +
-            "and (b.title like %:searchValue% or b.content like %:searchValue% or b.answer like %:searchValue%) " +
+            "and (b.title like %:searchValue% or b.contents like %:searchValue% or b.answer like %:searchValue%) " +
             "and b.stat=:stat ")
     Page<Board> findByBranchIdAndAdminIdAndStat(
             @Param("branch_id") int branch_id
@@ -22,7 +22,7 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
 
     Page<Board> findByBranchIdAndAdminIdAndStatNot(int branch_id, int admin_id, String stat, Pageable pageable);
     @Query(value = "select b from Board b where b.branchId=:branch_id and b.adminId=:admin_id " +
-            "and (b.title like %:searchValue% or b.content like %:searchValue% or b.answer like %:searchValue%) " +
+            "and (b.title like %:searchValue% or b.contents like %:searchValue% or b.answer like %:searchValue%) " +
             "and b.stat != :stat ")
     Page<Board> findByBranchIdAndAdminIdAndStatNot(
             @Param("branch_id") int branch_id
