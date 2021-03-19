@@ -73,7 +73,7 @@ public class BoardController {
     /**
      * 문의 내역 생성
      * @param title
-     * @param content
+     * @param contents
      * @param accidentTime
      * @param file
      * @return
@@ -81,7 +81,7 @@ public class BoardController {
     @PostMapping("/board")
     public CommonResult boardInsert(
             @RequestParam String title,
-            @RequestParam String content,
+            @RequestParam String contents,
             @RequestParam String accidentTime,
             @RequestParam(required = false) MultipartFile file
             ){
@@ -91,7 +91,7 @@ public class BoardController {
         if(!StringUtils.hasText(title)) {
             return CommonResult.Fail(400, "제목을 입력해 주세요.");
         }
-        if(!StringUtils.hasText(content)) {
+        if(!StringUtils.hasText(contents)) {
             return CommonResult.Fail(400, "문의내용을 입력해 주세요.");
         }
 
@@ -109,7 +109,7 @@ public class BoardController {
                 .branchId(admin.getBranchId())
                 .adminId(admin.getId())
                 .title(title)
-                .content(content)
+                .contents(contents)
                 .accidentTime(accidentTime)
                 .attachImgUrl(fileUrl)
                 .stat("1002")
@@ -126,7 +126,7 @@ public class BoardController {
      * 문의 수정
      * @param id
      * @param title
-     * @param content
+     * @param contents
      * @param accidentTime
      * @param file
      * @return
@@ -135,25 +135,28 @@ public class BoardController {
     public CommonResult boardUpdate(
             @PathVariable int id,
             @RequestParam String title,
-            @RequestParam String content,
+            @RequestParam String contents,
             @RequestParam String accidentTime,
             @RequestParam(required = false) MultipartFile file
     ){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Admin admin = adminService.fintByAccount(authentication.getName()).orElseThrow(AdminNotFoundException::new);
 
-        if(!StringUtils.hasText(title) || !StringUtils.hasText(content) || !StringUtils.hasText(accidentTime)){
-            return CommonResult.Fail(400, "필드를 모두 입력해 주세요.");
+        if(!StringUtils.hasText(title)) {
+            return CommonResult.Fail(400, "제목을 입력해 주세요.");
+        }
+        if(!StringUtils.hasText(contents)) {
+            return CommonResult.Fail(400, "문의내용을 입력해 주세요.");
         }
 
         Board board = boardService.find(id, admin.getId()).orElseThrow(BoardNotFoundException::new);
         if(!"1002".equals(board.getStat())){
-            return CommonResult.Fail(500, "수정이 불가능합니다.");
+            return CommonResult.Fail(500, "처리 중인 경우에만 수정이 가능합니다.");
         }
 
         board = board
                 .withTitle(title)
-                .withContent(content)
+                .withContents(contents)
                 .withAccidentTime(accidentTime);
 
         String fileUrl = null;
