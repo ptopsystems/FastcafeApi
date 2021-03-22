@@ -14,7 +14,7 @@ public interface StatVanPayDailyRepository extends JpaRepository<StatVanPayDaily
     Date getMaxIndexRegdate(@Param(value = "branch_id") int branch_id);
 
 
-    @Query(value = "select d.indexRegdate, sum(d.payMoney) as payMoney, sum(d.payCnt) as payCnt " +
+    @Query(value = "select d.indexRegdate as indexRegdate, sum(d.payMoney) as payMoney, sum(d.payCnt) as payCnt " +
             "from StatVanPayDaily d " +
             "where d.branchId=:branch_id and d.indexRegdate between :startdate and :enddate " +
             "group by d.indexRegdate " +
