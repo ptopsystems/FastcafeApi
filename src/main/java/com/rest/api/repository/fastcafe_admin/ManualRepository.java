@@ -9,5 +9,5 @@ import java.util.Optional;
 public interface ManualRepository extends JpaRepository<Manual, Integer> {
     Optional<Manual> findByIdAndStat(int id, String stat);
 
-    List<Manual> findByStat(String stat);
+    List<Manual> findByMachineModelInAndStat(List<String> machineModel, String stat);
 }

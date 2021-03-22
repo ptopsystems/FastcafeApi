@@ -10,10 +10,14 @@ public class ManualDTO {
     private int id;
     private String title;
     private String version;
+    private String attachFileUrl;
+    private String originFileName;
 
     public ManualDTO(Manual manual){
         this.id = manual.getId();
         this.title = manual.getTitle();
         this.version = manual.getVersion();
+        this.attachFileUrl = manual.getAttachFileUrl();
+        this.originFileName = manual.getOriginFileName();
     }
 }

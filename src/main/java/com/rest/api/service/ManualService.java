@@ -21,7 +21,7 @@ public class ManualService {
     }
 
     @Transactional
-    public List<Manual> list() {
-        return manualRepository.findByStat("1000");
+    public List<Manual> list(List<String> machineModels) {
+        return manualRepository.findByMachineModelInAndStat(machineModels, "1000");
     }
 }

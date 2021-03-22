@@ -23,6 +23,8 @@ public class BranchMachine {
     private int branchId;
     private String machineType;
     private String machineCompany;
+    private String machineModel;
+    private String branchMachineName;
     private String machineName;
     private String machinePk;
     private String deviceNo;
