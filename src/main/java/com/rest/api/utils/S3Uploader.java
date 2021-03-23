@@ -76,6 +76,6 @@ public class S3Uploader {
                 new PutObjectRequest("ones.cloud", filePath + fileName, file.getInputStream(), null)
                         .withCannedAcl(CannedAccessControlList.PublicRead)
         );
-        return "https://ones.cloud/" + filePath + fileName;
+        return "http://ones.cloud/" + filePath + fileName;
     }
 }
