@@ -1,7 +1,6 @@
 package com.rest.api.controller;
 
 import com.rest.api.entity.fastcafe_admin.Admin;
-import com.rest.api.entity.fastcafe_admin.BranchMachine;
 import com.rest.api.entity.fastcafe_admin.Manual;
 import com.rest.api.entity.fastcafe_admin.dto.ManualDTO;
 import com.rest.api.exception.AdminNotFoundException;
@@ -36,12 +35,12 @@ public class ManualController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Admin admin = adminService.fintByAccount(authentication.getName()).orElseThrow(AdminNotFoundException::new);
 
-        List<String> branchMachines = branchService.branchMachineFindByBranchId(admin.getBranchId())
+        List<Manual> manuals = branchService.branchMachineFindByBranchId(admin.getBranchId())
                 .stream()
-                .map(BranchMachine::getMachineModel)
+                .map(branchMachine -> manualService.getByMachineModel(branchMachine.getMachineModel()))
                 .collect(Collectors.toList());
 
-        List<Manual> manuals = manualService.list(branchMachines);
+
         return DataResult.Success("manuals", manuals.stream().map(ManualDTO::new));
     }
 

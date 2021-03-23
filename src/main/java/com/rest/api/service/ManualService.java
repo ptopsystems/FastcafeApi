@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -19,9 +18,8 @@ public class ManualService {
     public Optional<Manual> get(int id) {
         return manualRepository.findByIdAndStat(id, "1000");
     }
-
     @Transactional
-    public List<Manual> list(List<String> machineModels) {
-        return manualRepository.findByMachineModelInAndStat(machineModels, "1000");
+    public Manual getByMachineModel(String machineModel) {
+        return manualRepository.findFirstByMachineModelAndStatOrderByVersionDesc(machineModel, "1000");
     }
 }
