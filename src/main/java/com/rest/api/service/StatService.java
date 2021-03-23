@@ -65,6 +65,8 @@ public class StatService {
             for(IStatVanPayWeeklyGroupDTO p : past){
                 StatVanPayWeeklyTotalStatDTO dto = new StatVanPayWeeklyTotalStatDTO();
                 dto.setBaseWeek(baseWeek++ + "주");
+                dto.setPastStartdate(p.getStartdate());
+                dto.setPastEnddate(p.getEnddate());
                 dto.setPastMoney(p.getPayMoney());
                 dto.setPastCnt(p.getPayCnt());
                 stats.add(dto);
@@ -90,6 +92,8 @@ public class StatService {
 
             for(int i=0; i< past.size(); i++){
                 StatVanPayWeeklyTotalStatDTO stat = stats.get(i);
+                stat.setPastStartdate(past.get(i).getStartdate());
+                stat.setPastEnddate(past.get(i).getEnddate());
                 stat.setPastMoney(past.get(i).getPayMoney());
                 stat.setPastCnt(past.get(i).getPayCnt());
             }

@@ -15,6 +15,8 @@ public class StatVanPayWeeklyTotalStatDTO {
     private Date enddate;
     private Long currMoney;
     private Long currCnt;
+    private Date pastStartdate;
+    private Date pastEnddate;
     private Long pastMoney;
     private Long pastCnt;
 }
