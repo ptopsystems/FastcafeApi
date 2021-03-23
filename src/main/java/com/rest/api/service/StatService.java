@@ -157,15 +157,23 @@ public class StatService {
         return stats;
     }
 
+    @Transactional
     public IStatVanPayDailyGroupDTO getStatVanPayDailyGroupByBranchId(int branch_id, Date startdate, Date enddate) {
         return statVanPayDailyRepository.getGroupByBranchId(branch_id, startdate, enddate);
     }
 
+    @Transactional
     public IStatVanPayWeeklyGroupDTO getStatVanPayWeeklyGroupByBranchId(int branch_id, Date basedate) {
         return statVanPayWeeklyRepository.getGroupByBranchId(branch_id, basedate);
     }
 
+    @Transactional
     public IStatVanPayDailyGroupDTO getStatVanPayDaily(int branch_id, Date basedate) {
         return statVanPayDailyRepository.findByBranchIdAndIndexRegdate(branch_id, basedate);
+    }
+
+    @Transactional
+    public Date getMaxIndexRegdateForStatVanPayWeekly(int branchId, String year, String month) {
+        return statVanPayWeeklyRepository.getMaxIndexRegdateByBranchIdAndBaseYearAndBaseMonth(branchId, year, month);
     }
 }

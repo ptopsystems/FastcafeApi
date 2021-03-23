@@ -74,7 +74,8 @@ public class StatController {
         if(period.equalsIgnoreCase("weekly")){
             // 주간
             List<StatVanPayWeeklyTotalStatDTO> stats = statService.listStatVanPayWeeklyGroupByBranchId(admin.getBranchId(), year, month, machineType, branch_machine_id);
-            return DataResult.Success("stats", stats);
+            Date lastdate = statService.getMaxIndexRegdateForStatVanPayWeekly(admin.getBranchId(), year, month);
+            return DataResult.Success("stats", stats).addResult("lastdate", lastdate);
         } else {
             // 월간
             List<StatVanPayMonthlyTotalStatDTO> stats = statService.listStatVanPayMonthlyGroupByBranchId(admin.getBranchId(), year, month, machineType, branch_machine_id);

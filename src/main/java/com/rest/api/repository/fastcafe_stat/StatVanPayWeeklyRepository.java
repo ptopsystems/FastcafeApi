@@ -11,12 +11,12 @@ import java.util.List;
 
 public interface StatVanPayWeeklyRepository extends JpaRepository<StatVanPayWeekly, Integer> {
     @Query(value = "select w.baseWeek, w.startdate, w.enddate, sum(w.payMoney) as payMoney, sum(w.payCnt) as payCnt " +
-            "from stat_van_pay_weekly w " +
-            "where w.branch_id=:branch_id " +
-            "   and w.branch_machine_id=:branch_machine_id " +
+            "from StatVanPayWeekly w " +
+            "where w.branchId=:branch_id " +
+            "   and w.branchMachineId=:branch_machine_id " +
             "   and w.baseYear=:baseYear " +
             "   and w.baseMonth=:baseMonth " +
-            "group by w.baseWeek ", nativeQuery = true)
+            "group by w.baseWeek ")
     List<IStatVanPayWeeklyGroupDTO> listGroupByBaseWeek(
             @Param("branch_id") int branch_id
             , @Param("baseYear") String baseYear
@@ -38,19 +38,25 @@ public interface StatVanPayWeeklyRepository extends JpaRepository<StatVanPayWeek
             , @Param("machineType") String machineType);
 
     @Query(value = "select w.baseWeek, w.startdate, w.enddate, sum(w.payMoney) as payMoney, sum(w.payCnt) as payCnt " +
-            "from stat_van_pay_weekly w " +
-            "where w.branch_id=:branch_id " +
+            "from StatVanPayWeekly w " +
+            "where w.branchId=:branch_id " +
             "   and w.baseYear=:baseYear " +
             "   and w.baseMonth=:baseMonth " +
-            "group by w.baseWeek ", nativeQuery = true)
+            "group by w.baseWeek ")
     List<IStatVanPayWeeklyGroupDTO> listGroupByBaseWeek(
             @Param("branch_id") int branch_id
             , @Param("baseYear") String baseYear
             , @Param("baseMonth") String baseMonth);
 
     @Query(value = "select w.baseWeek, w.startdate, w.enddate, sum(w.payMoney) as payMoney, sum(w.payCnt) as payCnt " +
-            "from stat_van_pay_weekly w " +
-            "where w.branch_id=:branch_id " +
-            "   and :basedate between w.startdate and w.enddate ", nativeQuery = true)
+            "from StatVanPayWeekly w " +
+            "where w.branchId=:branch_id " +
+            "   and :basedate between w.startdate and w.enddate ")
     IStatVanPayWeeklyGroupDTO getGroupByBranchId(int branch_id, Date basedate);
+
+    @Query(value = "select max(w.enddate) from StatVanPayWeekly w where w.branchId=:branch_id and w.baseYear=:baseYear and w.baseMonth=:baseMonth ")
+    Date getMaxIndexRegdateByBranchIdAndBaseYearAndBaseMonth(
+            @Param("branch_id") int branch_id
+            , @Param("baseYear") String baseYear
+            , @Param("baseMonth") String baseMonth);
 }
