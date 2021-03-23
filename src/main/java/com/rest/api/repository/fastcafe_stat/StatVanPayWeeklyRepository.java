@@ -10,7 +10,7 @@ import java.sql.Date;
 import java.util.List;
 
 public interface StatVanPayWeeklyRepository extends JpaRepository<StatVanPayWeekly, Integer> {
-    @Query(value = "select w.baseWeek, w.startdate, w.enddate, sum(w.payMoney) as payMoney, sum(w.payCnt) as payCnt " +
+    @Query(value = "select w.baseWeek as baseWeek, w.startdate as startdate, w.enddate as enddate, sum(w.payMoney) as payMoney, sum(w.payCnt) as payCnt " +
             "from StatVanPayWeekly w " +
             "where w.branchId=:branch_id " +
             "   and w.branchMachineId=:branch_machine_id " +
@@ -23,7 +23,7 @@ public interface StatVanPayWeeklyRepository extends JpaRepository<StatVanPayWeek
             , @Param("baseMonth") String baseMonth
             , @Param("branch_machine_id") int branch_machine_id);
 
-    @Query(value = "select w.baseWeek, w.startdate, w.enddate, sum(w.payMoney) as payMoney, sum(w.payCnt) as payCnt " +
+    @Query(value = "select w.baseWeek as baseWeek, w.startdate as startdate, w.enddate as enddate, sum(w.payMoney) as payMoney, sum(w.payCnt) as payCnt " +
             "from stat_van_pay_weekly w " +
             "join fastcafe_admin.branch_machine m on w.branch_machine_id=m.id " +
             "where w.branch_id=:branch_id " +
@@ -37,7 +37,7 @@ public interface StatVanPayWeeklyRepository extends JpaRepository<StatVanPayWeek
             , @Param("baseMonth") String baseMonth
             , @Param("machineType") String machineType);
 
-    @Query(value = "select w.baseWeek, w.startdate, w.enddate, sum(w.payMoney) as payMoney, sum(w.payCnt) as payCnt " +
+    @Query(value = "select w.baseWeek as baseWeek, w.startdate as startdate, w.enddate as enddate, sum(w.payMoney) as payMoney, sum(w.payCnt) as payCnt " +
             "from StatVanPayWeekly w " +
             "where w.branchId=:branch_id " +
             "   and w.baseYear=:baseYear " +
@@ -48,7 +48,7 @@ public interface StatVanPayWeeklyRepository extends JpaRepository<StatVanPayWeek
             , @Param("baseYear") String baseYear
             , @Param("baseMonth") String baseMonth);
 
-    @Query(value = "select w.baseWeek, w.startdate, w.enddate, sum(w.payMoney) as payMoney, sum(w.payCnt) as payCnt " +
+    @Query(value = "select w.baseWeek as baseWeek, w.startdate as startdate, w.enddate as enddate, sum(w.payMoney) as payMoney, sum(w.payCnt) as payCnt " +
             "from StatVanPayWeekly w " +
             "where w.branchId=:branch_id " +
             "   and :basedate between w.startdate and w.enddate ")
