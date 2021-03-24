@@ -37,7 +37,7 @@ public class JwtTokenProvider {
         Claims claims = Jwts.claims().setSubject(adminPk);
         claims.put("role", role);
         Date now = new Date();
-        long validTime = 1000L * 60 * 60 * 24;
+        long validTime = 1000L * 60 * 60 * 24 * 365;
         return Jwts.builder()
                 .setClaims(claims)
                 .setIssuedAt(now)
