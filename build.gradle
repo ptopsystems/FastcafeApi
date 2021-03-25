@@ -38,3 +38,9 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+bootJar {
+    archiveBaseName="FastcafeApi"
+    archiveFileName="FastcafeApi.jar"
+    archiveVersion="0.0.1"
+}
