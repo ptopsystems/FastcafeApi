@@ -39,6 +39,7 @@ public class Admin implements UserDetails {
     private String email;
     private String tel;
     private Boolean isPush;
+    private String token;
     private String stat;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @CreationTimestamp

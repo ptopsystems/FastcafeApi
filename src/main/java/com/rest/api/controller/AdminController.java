@@ -85,4 +85,17 @@ public class AdminController {
         }
         return CommonResult.Success();
     }
+
+    @PatchMapping("/admin/token")
+    public CommonResult token(
+            @RequestParam(defaultValue = "") String token
+    ){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Admin admin = adminService.fintByAccount(authentication.getName()).orElseThrow(AdminNotFoundException::new);
+        admin = adminService.save(admin.withToken(token));
+        if(admin == null){
+            return CommonResult.Fail(500, "변경중에 오류가 발생했습니다.");
+        }
+        return CommonResult.Success();
+    }
 }
