@@ -30,5 +30,5 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
             , @Param("searchValue") String searchValue
             , @Param("stat") String stat, Pageable pageable);
 
-    Optional<Board> findByIdAndAdminIdAndStat(int id, int admin_id, String stat);
+    Optional<Board> findByIdAndAdminIdAndStatNot(int id, int admin_id, String stat);
 }
