@@ -10,9 +10,6 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
-import org.hibernate.annotations.common.util.impl.LoggerFactory;
-import org.jboss.logging.Logger;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestAttributes;
@@ -22,12 +19,10 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 import java.util.stream.Collectors;
 
-@Aspect
+//@Aspect
 @Component
 @RequiredArgsConstructor
 public class LogAspect {
-    Logger logger = LoggerFactory.logger(LogAspect.class);
-
     private final LogService logService;
     private final JwtTokenProvider jwtTokenProvider;
 
