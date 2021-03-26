@@ -24,7 +24,7 @@ public interface StatVanPayDailyRepository extends JpaRepository<StatVanPayDaily
             , @Param(value = "startdate") Date startdate
             , @Param(value = "enddate") Date enddate);
 
-    @Query(value = "select d.indexRegdate, sum(d.payMoney) as payMoney, sum(d.payCnt) as payCnt " +
+    @Query(value = "select d.indexRegdate as indexRegdate, sum(d.payMoney) as payMoney, sum(d.payCnt) as payCnt " +
             "from StatVanPayDaily d " +
             "where d.branchId=:branch_id and d.indexRegdate between :startdate and :enddate ")
     IStatVanPayDailyGroupDTO getGroupByBranchId(
@@ -32,7 +32,7 @@ public interface StatVanPayDailyRepository extends JpaRepository<StatVanPayDaily
             , @Param(value = "startdate") Date startdate
             , @Param(value = "enddate") Date enddate);
 
-    @Query(value = "select d.indexRegdate, sum(d.payMoney) as payMoney, sum(d.payCnt) as payCnt " +
+    @Query(value = "select d.indexRegdate as indexRegdate, sum(d.payMoney) as payMoney, sum(d.payCnt) as payCnt " +
             "from StatVanPayDaily d " +
             "where d.branchId=:branch_id and d.indexRegdate=:indexRegdate ")
     IStatVanPayDailyGroupDTO findByBranchIdAndIndexRegdate(int branch_id, Date indexRegdate);

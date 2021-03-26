@@ -31,6 +31,6 @@ public class LoginController {
         if(!passwordEncoder.matches(password, admin.getPassword())){
             throw new AdminNotFoundException();
         }
-        return DataResult.Success("accessToken", jwtTokenProvider.createToken(String.valueOf(admin.getId()), admin.getRole()));
+        return DataResult.Success("accessToken", jwtTokenProvider.createToken(String.valueOf(admin.getId()), String.valueOf(admin.getBranchId()), admin.getRole()));
     }
 }
