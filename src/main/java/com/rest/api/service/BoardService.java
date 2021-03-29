@@ -39,7 +39,7 @@ public class BoardService {
 
     @Transactional
     public Optional<Board> find(int id, int admin_id) {
-        return boardRepository.findByIdAndAdminId(id, admin_id);
+        return boardRepository.findByIdAndAdminIdAndStatNot(id, admin_id, "9001");
     }
 
     @Transactional

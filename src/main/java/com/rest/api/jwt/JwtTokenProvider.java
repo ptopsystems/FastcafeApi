@@ -33,8 +33,9 @@ public class JwtTokenProvider {
         secretKey = Base64.getEncoder().encodeToString(Objects.requireNonNull(env.getProperty("jwt.secret.key")).getBytes());
     }
 
-    public String createToken(String adminPk, String role){
+    public String createToken(String adminPk, String branchPk, String role){
         Claims claims = Jwts.claims().setSubject(adminPk);
+        claims.put("branchPk", branchPk);
         claims.put("role", role);
         Date now = new Date();
         long validTime = 1000L * 60 * 60 * 24 * 365;
@@ -52,6 +53,10 @@ public class JwtTokenProvider {
 
     public String getAdminPk(String token){
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
+    }
+
+    public String getBranchPk(String token){
+        return String.valueOf(Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().get("branchPk"));
     }
 
     public Authentication getAuthentication(String token){

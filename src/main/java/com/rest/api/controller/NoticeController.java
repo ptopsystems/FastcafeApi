@@ -24,7 +24,7 @@ public class NoticeController {
     private final AdminService adminService;
 
     @GetMapping("/notice")
-    private CommonResult notice(
+    public CommonResult notice(
             @RequestParam(defaultValue = "") String searchValue,
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int size
@@ -40,7 +40,7 @@ public class NoticeController {
     }
 
     @GetMapping("/notice/{id}")
-    private CommonResult noticeDetail(
+    public CommonResult noticeDetail(
             @PathVariable int id
     ){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
