@@ -25,6 +25,6 @@ public class StatVanPayMonthly {
     private int branchMachineId;
     private String baseYear;
     private String baseMonth;
-    private int payMoney;
+    private double payMoney;
     private int payCnt;
 }
