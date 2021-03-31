@@ -31,17 +31,18 @@ public class ManualController {
     private final ManualService manualService;
 
     @GetMapping("/manual")
-    public CommonResult manual(){
+    public CommonResult manual() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Admin admin = adminService.fintByAccount(authentication.getName()).orElseThrow(AdminNotFoundException::new);
 
         List<Manual> manuals = branchService.branchMachineFindByBranchId(admin.getBranchId())
                 .stream()
+                .filter(branchMachine -> manualService.getByMachineModel(branchMachine.getMachineModel()) != null)
                 .map(branchMachine -> manualService.getByMachineModel(branchMachine.getMachineModel()))
                 .collect(Collectors.toList());
+        List<ManualDTO> manualDTOs = manuals.stream().map(ManualDTO::new).collect(Collectors.toList());
 
-
-        return DataResult.Success("manuals", manuals.stream().map(ManualDTO::new));
+        return DataResult.Success("manuals", manualDTOs);
     }
 
 
