@@ -42,7 +42,7 @@ public class DashBoardContoller {
         Admin admin = adminService.fintByAccount(authentication.getName()).orElseThrow(AdminNotFoundException::new);
 
         // 결제금액/결제건
-        Date maxDate = statService.getMaxIndexRegdateForStatVanPayDailyByBranchId(admin.getId());
+        Date maxDate = statService.getMaxIndexRegdateForStatVanPayDailyByBranchId(admin.getBranchId());
         IStatVanPayDailyGroupDTO month = null;
         IStatVanPayWeeklyGroupDTO week = null;
         IStatVanPayDailyGroupDTO day = null;
