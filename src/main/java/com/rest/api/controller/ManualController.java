@@ -41,6 +41,7 @@ public class ManualController {
                 .filter(branchMachine -> manualService.getByMachineModel(branchMachine.getMachineModel()) != null)
                 .map(branchMachine -> manualService.getByMachineModel(branchMachine.getMachineModel()))
                 .collect(Collectors.toList());
+
         Stream<ManualDTO> manualDTOs = manuals.stream().map(ManualDTO::new);
 
         return DataResult.Success("manuals", manualDTOs);
