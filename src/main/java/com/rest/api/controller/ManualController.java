@@ -32,7 +32,7 @@ public class ManualController {
     private final ManualService manualService;
 
     @GetMapping("/manual")
-    public CommonResult manual(){
+    public CommonResult manual() throws Exception {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Admin admin = adminService.fintByAccount(authentication.getName()).orElseThrow(AdminNotFoundException::new);
 
@@ -41,6 +41,10 @@ public class ManualController {
                 .filter(branchMachine -> manualService.getByMachineModel(branchMachine.getMachineModel()) != null)
                 .map(branchMachine -> manualService.getByMachineModel(branchMachine.getMachineModel()))
                 .collect(Collectors.toList());
+        System.out.println(manuals.size());
+        for(Manual manual : manuals){
+            System.out.println(manual.getMachineModel());
+        }
         Stream<ManualDTO> manualDTOs = manuals.stream().map(ManualDTO::new);
 
         return DataResult.Success("manuals", manualDTOs);
