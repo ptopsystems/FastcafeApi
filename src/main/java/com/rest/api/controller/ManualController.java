@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @RequiredArgsConstructor
 @RestController
@@ -40,7 +41,7 @@ public class ManualController {
                 .filter(branchMachine -> manualService.getByMachineModel(branchMachine.getMachineModel()) != null)
                 .map(branchMachine -> manualService.getByMachineModel(branchMachine.getMachineModel()))
                 .collect(Collectors.toList());
-        List<ManualDTO> manualDTOs = manuals.stream().map(ManualDTO::new).collect(Collectors.toList());
+        Stream<ManualDTO> manualDTOs = manuals.stream().map(ManualDTO::new);
 
         return DataResult.Success("manuals", manualDTOs);
     }
