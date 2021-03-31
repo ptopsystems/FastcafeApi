@@ -55,3 +55,130 @@ cloud:
       static: ap-northeast-2
     stack:
       auto: false
+
+
+---
+
+server:
+  port: 8080
+
+spring:
+  config:
+    activate:
+      on-profile: dev
+  servlet:
+    multipart:
+      max-file-size: 200MB
+      max-request-size: 200MB
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+
+datasource:
+  fastcafe-admin:
+    url: jdbc:log4jdbc:mysql://test-db.ones.cloud:3306/fastcafe_admin?useSSL=false&useCursors=false&sendStringParametersAsUnicode=false&characterEncoding=UTF8
+    username: test_ones_aws
+    password: ffei32##2nd!$%
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+  fastcafe-log:
+    url: jdbc:log4jdbc:mysql://test-db.ones.cloud:3306/fastcafe_log?useSSL=false&useCursors=false&sendStringParametersAsUnicode=false&characterEncoding=UTF8
+    username: test_ones_aws
+    password: ffei32##2nd!$%
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+  fastcafe-stat:
+    url: jdbc:log4jdbc:mysql://test-db.ones.cloud:3306/fastcafe_stat?useSSL=false&useCursors=false&sendStringParametersAsUnicode=false&characterEncoding=UTF8
+    username: test_ones_aws
+    password: ffei32##2nd!$%
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+
+logging:
+  level:
+    org:
+      springframework:
+        jdbc:
+          datasource:
+            DriverManagerDataSource: DEBUG
+    org.hibernate.SQL: DEBUG
+  config: classpath:logback.xml
+
+jwt:
+  secret:
+    key: osteam##qovh
+
+cloud:
+  aws:
+    credentials:
+      access-key: AKIAJ7BWB56V3EHT2EDA
+      secret-key: 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
+      profile-name: fastcafeapi
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
+
+---
+
+server:
+  port: 8080
+
+spring:
+  config:
+    activate:
+      on-profile: real
+  servlet:
+    multipart:
+      max-file-size: 200MB
+      max-request-size: 200MB
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+
+datasource:
+  fastcafe-admin:
+    url: jdbc:log4jdbc:mysql://db-master1.ones.cloud:3306/fastcafe_admin?useSSL=false&useCursors=false&sendStringParametersAsUnicode=false&characterEncoding=UTF8
+    username: onessaas_aws
+    password: nnei32##2nd!$%
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+  fastcafe-log:
+    url: jdbc:log4jdbc:mysql://db-master1.ones.cloud:3306/fastcafe_log?useSSL=false&useCursors=false&sendStringParametersAsUnicode=false&characterEncoding=UTF8
+    username: onessaas_aws
+    password: nnei32##2nd!$%
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+  fastcafe-stat:
+    url: jdbc:log4jdbc:mysql://db-master1.ones.cloud:3306/fastcafe_stat?useSSL=false&useCursors=false&sendStringParametersAsUnicode=false&characterEncoding=UTF8
+    username: onessaas_aws
+    password: nnei32##2nd!$%
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+
+logging:
+  level:
+    org:
+      springframework:
+        jdbc:
+          datasource:
+            DriverManagerDataSource: DEBUG
+    org.hibernate.SQL: DEBUG
+  config: classpath:logback.xml
+
+jwt:
+  secret:
+    key: osteam##qovh
+
+cloud:
+  aws:
+    credentials:
+      access-key: AKIAJ7BWB56V3EHT2EDA
+      secret-key: 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
+      profile-name: fastcafeapi
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
