@@ -32,7 +32,7 @@ public class ManualController {
     private final ManualService manualService;
 
     @GetMapping("/manual")
-    public CommonResult manual() {
+    public CommonResult manual(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Admin admin = adminService.fintByAccount(authentication.getName()).orElseThrow(AdminNotFoundException::new);
 
