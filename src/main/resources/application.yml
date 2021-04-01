@@ -16,19 +16,19 @@ spring:
 
 datasource:
   fastcafe-admin:
-    url: jdbc:log4jdbc:mysql://db-master1.ones.cloud:3306/fastcafe_admin?useSSL=false&useCursors=false&sendStringParametersAsUnicode=false&characterEncoding=UTF8
-    username: onessaas_aws
-    password: nnei32##2nd!$%
+    url: jdbc:log4jdbc:mysql://test-db.ones.cloud:3306/fastcafe_admin?useSSL=false&useCursors=false&sendStringParametersAsUnicode=false&characterEncoding=UTF8
+    username: test_ones_aws
+    password: ffei32##2nd!$%
     driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
   fastcafe-log:
-    url: jdbc:log4jdbc:mysql://db-master1.ones.cloud:3306/fastcafe_log?useSSL=false&useCursors=false&sendStringParametersAsUnicode=false&characterEncoding=UTF8
-    username: onessaas_aws
-    password: nnei32##2nd!$%
+    url: jdbc:log4jdbc:mysql://test-db.ones.cloud:3306/fastcafe_log?useSSL=false&useCursors=false&sendStringParametersAsUnicode=false&characterEncoding=UTF8
+    username: test_ones_aws
+    password: ffei32##2nd!$%
     driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
   fastcafe-stat:
-    url: jdbc:log4jdbc:mysql://db-master1.ones.cloud:3306/fastcafe_stat?useSSL=false&useCursors=false&sendStringParametersAsUnicode=false&characterEncoding=UTF8
-    username: onessaas_aws
-    password: nnei32##2nd!$%
+    url: jdbc:log4jdbc:mysql://test-db.ones.cloud:3306/fastcafe_stat?useSSL=false&useCursors=false&sendStringParametersAsUnicode=false&characterEncoding=UTF8
+    username: test_ones_aws
+    password: ffei32##2nd!$%
     driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
 
 logging:

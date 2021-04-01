@@ -21,6 +21,7 @@ public class Manual {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    private String manualType;
     private String machineModel;
     private String version;
     private String title;
