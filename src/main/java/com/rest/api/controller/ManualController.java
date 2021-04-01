@@ -36,13 +36,16 @@ public class ManualController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Admin admin = adminService.fintByAccount(authentication.getName()).orElseThrow(AdminNotFoundException::new);
 
-        List<Manual> manuals = branchService.branchMachineFindByBranchId(admin.getBranchId())
+        List<Manual> totalManuals = manualService.listByManualType("공통");
+
+        List<Manual> machineManuals = branchService.branchMachineFindByBranchId(admin.getBranchId())
                 .stream()
                 .filter(branchMachine -> manualService.getByMachineModel(branchMachine.getMachineModel()) != null)
                 .map(branchMachine -> manualService.getByMachineModel(branchMachine.getMachineModel()))
                 .collect(Collectors.toList());
 
-        Stream<ManualDTO> manualDTOs = manuals.stream().map(ManualDTO::new);
+        totalManuals.addAll(machineManuals);
+        Stream<ManualDTO> manualDTOs = totalManuals.stream().map(ManualDTO::new);
 
         return DataResult.Success("manuals", manualDTOs);
     }

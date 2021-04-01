@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,5 +22,9 @@ public class ManualService {
     @Transactional
     public Manual getByMachineModel(String machineModel) {
         return manualRepository.findFirstByMachineModelAndStatOrderByVersionDesc(machineModel, "1000");
+    }
+
+    public List<Manual> listByManualType(String manualType) {
+        return manualRepository.findByManualTypeAndStat(manualType, "1000");
     }
 }
