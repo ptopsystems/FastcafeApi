@@ -26,5 +26,10 @@ public class BranchService {
     public List<BranchMachine> branchMachineFindByBranchId(int branch_id) {
         return branchMachineRepository.findByBranchIdAndStat(branch_id, "1000");
     }
+
+    @Transactional
+    public Branch getBranchByBusinessLiscense(String memListNo) {
+        return branchRepository.findByBusinessLicenseAndStat(memListNo, "1000");
+    }
 }
 

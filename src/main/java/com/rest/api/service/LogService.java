@@ -1,14 +1,17 @@
 package com.rest.api.service;
 
 import com.rest.api.entity.fastcafe_log.LogCallApi;
+import com.rest.api.entity.fastcafe_log.LogCardPayByApiData;
 import com.rest.api.entity.fastcafe_log.LogNoticeRead;
 import com.rest.api.repository.fastcafe_log.LogCallApiRepository;
+import com.rest.api.repository.fastcafe_log.LogCardPayByApiDataRepository;
 import com.rest.api.repository.fastcafe_log.LogNoticeReadRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.transaction.Transactional;
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Optional;
 
@@ -17,6 +20,8 @@ import java.util.Optional;
 public class LogService {
     private final LogNoticeReadRepository logNoticeReadRepository;
     private final LogCallApiRepository logCallApiRepository;
+    private final LogCardPayByApiDataRepository logCardPayByApiDataRepository;
+
     @Transactional
     public Optional<LogNoticeRead> findByNoticeIdAndAdminId(Integer notice_id, Integer admin_id) {
         return logNoticeReadRepository.findByNoticeIdAndAdminId(notice_id, admin_id);
@@ -49,5 +54,15 @@ public class LogService {
     public void saveLogCallApi(LogCallApi logCallApi) {
         logCallApi.setRegdate(new Timestamp(System.currentTimeMillis()));
         logCallApiRepository.save(logCallApi);
+    }
+
+    @Transactional
+    public LogCardPayByApiData insertLogCardPayByApiData(LogCardPayByApiData entity) {
+        return logCardPayByApiDataRepository.save(entity);
+    }
+
+    @Transactional
+    public LogCardPayByApiData getLastLogCardPayByApiData(int branch_id, Date basedate) {
+        return logCardPayByApiDataRepository.findFirstByBranchIdAndBasedateOrderByIdDesc(branch_id, basedate);
     }
 }

@@ -1,0 +1,143 @@
+bankcode:
+  banks:
+    -
+      code: "001"
+      bankName: 한국은행
+    -
+      code: "002"
+      bankName: 산업은행
+    -
+      code: "003"
+      bankName: 기업은행
+    -
+      code: "004"
+      bankName: 국민은행
+    -
+      code: "005"
+      bankName: 외환은행
+    -
+      code: "007"
+      bankName: 수협중앙회
+    -
+      code: "008"
+      bankName: 수출입은행
+    -
+      code: "009"
+      bankName: 수협중앙회
+    -
+      code: "010"
+      bankName: 농협은행
+    -
+      code: "011"
+      bankName: 농협중앙회
+    -
+      code: "020"
+      bankName: 우리은행
+    -
+      code: "023"
+      bankName: 제일은행
+    -
+      code: "027"
+      bankName: 씨티은행
+    -
+      code: "031"
+      bankName: 대구은행
+    -
+      code: "032"
+      bankName: 부산은행
+    -
+      code: "034"
+      bankName: 광주은행
+    -
+      code: "035"
+      bankName: 제주은행
+    -
+      code: "037"
+      bankName: 전북은행
+    -
+      code: "039"
+      bankName: 경남은행
+    -
+      code: "045"
+      bankName: 새마을금고중앙회
+    -
+      code: "048"
+      bankName: 신협중앙회
+    -
+      code: "050"
+      bankName: 상호저축은행
+    -
+      code: "052"
+      bankName: 모간스탠리은행
+    -
+      code: "054"
+      bankName: HSBC은행
+    -
+      code: "055"
+      bankName: 도이치은행
+    -
+      code: "056"
+      bankName: 알비에스피엘씨은행
+    -
+      code: "057"
+      bankName: 제이피모간체이스은행
+    -
+      code: "058"
+      bankName: 미즈호은행
+    -
+      code: "059"
+      bankName: 미쓰비시도쿄UFJ은행
+    -
+      code: "060"
+      bankName: BOA은행
+    -
+      code: "061"
+      bankName: 비엔피파리은행
+    -
+      code: "062"
+      bankName: 중국공상은행
+    -
+      code: "063"
+      bankName: 중국은행
+    -
+      code: "064"
+      bankName: 산림조합중앙회
+    -
+      code: "065"
+      bankName: 대화은행
+    -
+      code: "071"
+      bankName: 우체국
+    -
+      code: "076"
+      bankName: 신용보증기금
+    -
+      code: "077"
+      bankName: 기술보증기금
+    -
+      code: "081"
+      bankName: 하나은행
+    -
+      code: "088"
+      bankName: 신한은행
+    -
+      code: "090"
+      bankName: 카카오뱅크
+    -
+      code: "092"
+      bankName: 한국정책금융공사
+    -
+      code: "093"
+      bankName: 한국주택금융공사
+    -
+      code: "094"
+      bankName: 서울보증보험
+    -
+      code: "095"
+      bankName: 경찰청
+    -
+      code: "096"
+      bankName: 한국전자금융(주)
+    -
+      code: "099"
+      bankName: 금융결제원

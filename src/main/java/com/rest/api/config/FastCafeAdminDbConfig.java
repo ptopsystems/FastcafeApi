@@ -25,7 +25,6 @@ import java.util.HashMap;
         transactionManagerRef = "fastCafeAdminTransactionManager",
         basePackages = {"com.rest.api.repository.fastcafe_admin"}
 )
-
 public class FastCafeAdminDbConfig {
 
     private final Environment env;

@@ -28,7 +28,13 @@ public class Branch {
     private Date closedate;
     private String ownerName;
     private String ownerTel;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private String ownerBirthday;
     private String businessLicense;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private String bankCode;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private String bankAccount;
     private String address;
     private String addressDetail;
     private String stat;

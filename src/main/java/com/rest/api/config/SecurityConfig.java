@@ -50,7 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER)
             .and()
             .authorizeRequests()
-            .antMatchers("/v1/login", "/v1/logout").permitAll()
+            .antMatchers("/v1/login", "/v1/logout", "/v1/pay/bankcode").permitAll()
             .antMatchers(HttpMethod.GET, "/exception/**").permitAll()
             .anyRequest().hasAuthority("ADMIN")
             .and()

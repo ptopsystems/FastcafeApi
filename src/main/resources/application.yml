@@ -56,6 +56,10 @@ cloud:
     stack:
       auto: false
 
+cardpay:
+  api:
+    url: https://datahub-dev.scraping.co.kr/credit/
+    token: 152604b4167145d88c1cd37a14f1ac0a38bca6bc
 
 ---
 
@@ -120,6 +124,11 @@ cloud:
     stack:
       auto: false
 
+cardpay:
+  api:
+    url: https://datahub-dev.scraping.co.kr/credit/
+    token: 152604b4167145d88c1cd37a14f1ac0a38bca6bc
+
 ---
 
 server:
@@ -182,3 +191,8 @@ cloud:
       static: ap-northeast-2
     stack:
       auto: false
+
+cardpay:
+  api:
+    url: https://datahub-dev.scraping.co.kr/credit/
+    token: 152604b4167145d88c1cd37a14f1ac0a38bca6bc
