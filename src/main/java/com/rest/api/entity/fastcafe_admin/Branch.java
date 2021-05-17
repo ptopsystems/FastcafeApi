@@ -1,9 +1,7 @@
 package com.rest.api.entity.fastcafe_admin;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
@@ -14,7 +12,10 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@Builder
+@With
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "branch")
 public class Branch {
     @Id
@@ -37,6 +38,8 @@ public class Branch {
     private String bankAccount;
     private String address;
     private String addressDetail;
+    @Column(name = "isRegisterCardPayApi")
+    private boolean registerCardPayApi;
     private String stat;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Timestamp regdate;
@@ -48,3 +51,4 @@ public class Branch {
     @Where(clause = "stat = '1000'")
     private List<BranchOperateDetail> branchOperateDetails;
 }
+

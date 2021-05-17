@@ -51,6 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
             .authorizeRequests()
             .antMatchers("/v1/login", "/v1/logout", "/v1/pay/bankcode").permitAll()
+            .antMatchers("/v1/etc/**").permitAll()
             .antMatchers(HttpMethod.GET, "/exception/**").permitAll()
             .anyRequest().hasAuthority("ADMIN")
             .and()

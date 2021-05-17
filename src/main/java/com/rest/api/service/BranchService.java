@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,6 +31,17 @@ public class BranchService {
     @Transactional
     public Branch getBranchByBusinessLiscense(String memListNo) {
         return branchRepository.findByBusinessLicenseAndStat(memListNo, "1000");
+    }
+
+    @Transactional
+    public void save(Branch branch) {
+        branch.withModdate(new Timestamp(System.currentTimeMillis()));
+        branchRepository.save(branch);
+    }
+
+    @Transactional
+    public List<Branch> findByRegisterCardPayApi() {
+        return branchRepository.findByRegisterCardPayApiAndStat(true, "1000");
     }
 }
 

@@ -8,6 +8,7 @@ import com.rest.api.exception.AdminNotFoundException;
 import com.rest.api.result.CommonResult;
 import com.rest.api.result.DataResult;
 import com.rest.api.service.AdminService;
+import com.rest.api.service.ScheduleService;
 import com.rest.api.service.StatService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -30,6 +31,7 @@ public class StatController {
 
     private final AdminService adminService;
     private final StatService statService;
+    private final ScheduleService scheduleService;
 
     @GetMapping("/stat/daily")
     public CommonResult daily(){
@@ -82,4 +84,7 @@ public class StatController {
             return DataResult.Success("stats", stats);
         }
     }
+
+
+
 }

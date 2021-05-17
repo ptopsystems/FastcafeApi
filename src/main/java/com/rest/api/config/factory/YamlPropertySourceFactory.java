@@ -1,4 +1,4 @@
-package com.rest.api.properties.factory;
+package com.rest.api.config.factory;
 
 import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
 import org.springframework.core.env.PropertiesPropertySource;

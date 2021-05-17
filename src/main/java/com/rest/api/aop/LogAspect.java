@@ -67,7 +67,10 @@ public class LogAspect {
         }
         logCallApi.setStatus(((CommonResult)result).getCode());
         logCallApi.setExcuteTime((int)(System.currentTimeMillis() - startTime));
-        logService.saveLogCallApi(logCallApi);
+
+        if(!logCallApi.getCallUri().contains("bankcode")) {
+            logService.saveLogCallApi(logCallApi);
+        }
         return result;
     }
 

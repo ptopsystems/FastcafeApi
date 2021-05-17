@@ -1,6 +1,6 @@
-package com.rest.api.properties;
+package com.rest.api.config;
 
-import com.rest.api.properties.factory.YamlPropertySourceFactory;
+import com.rest.api.config.factory.YamlPropertySourceFactory;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -16,7 +16,7 @@ import java.util.List;
 @ConfigurationProperties(prefix = "bankcode")
 @Getter
 @Setter
-public class BankCodeSource {
+public class BankCodeConfig {
     private List<Bank> banks;
 
     public static class Bank {

@@ -11,4 +11,6 @@ import java.sql.Date;
 public interface CardPayByApiRepository extends JpaRepository<CardPayByApi, Integer>, JpaSpecificationExecutor<CardPayByApi> {
     @Query(value = "select max(c.transDate) from CardPayByApi c where c.branchId=:branch_id")
     Date getMaxTransDate(@Param(value = "branch_id") int branch_id);
+
+    CardPayByApi findByBranchIdAndTransDateAndTransTimeAndCardNmAndCardNoAndAppNo(int branchId, Date transDate, String transTime, String cardNm, String cardNo, String appNo);
 }

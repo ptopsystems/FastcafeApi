@@ -24,7 +24,7 @@ public class CardPayByApi {
     private int branchId;
     private Date transDate;
     private String transTime;
-    private String authClassName;
+    private String appClassNm;
     private String cardNm;
     private String cardNo;
     private String appNo;

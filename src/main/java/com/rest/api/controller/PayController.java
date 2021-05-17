@@ -7,7 +7,6 @@ import com.rest.api.entity.fastcafe_admin.VanPay;
 import com.rest.api.entity.fastcafe_admin.dto.CardPayByApiDTO;
 import com.rest.api.entity.fastcafe_admin.dto.VanPayDTO;
 import com.rest.api.exception.AdminNotFoundException;
-import com.rest.api.properties.BankCodeSource;
 import com.rest.api.result.CommonResult;
 import com.rest.api.result.DataResult;
 import com.rest.api.service.AdminService;
@@ -34,9 +33,9 @@ public class PayController {
     private final AdminService adminService;
     private final PayService payService;
 
-    private final BankCodeSource bankCodeSource;
 
-    @GetMapping("/_pay")
+
+    @GetMapping("/pay")
     public CommonResult pay(
             @RequestParam(required = false) String startdateStr
             , @RequestParam(required = false) String enddateStr
@@ -78,13 +77,10 @@ public class PayController {
                 .addResult("totalPayMoney", totalPayMoney);
     }
 
-    @GetMapping("/pay/bankcode")
-    public CommonResult bankcode(){
-        return DataResult.Success("banks", bankCodeSource.getBanks());
-    }
 
-    @GetMapping("/pay")
-    public CommonResult cardPay(
+
+    @GetMapping("/paycard")
+    public CommonResult payCard(
             @RequestParam(name = "startdate", required = false) String strStartdate
             , @RequestParam(name = "enddate", required = false) String strEnddate
             , @RequestParam(name = "payType", defaultValue = "") String payType

@@ -63,14 +63,14 @@ public class ApiInquiryApprovalPeriodResult {
             private String transDate;
             @JsonAlias("INSTRMNM")
             private String instrmNm;
-            @JsonAlias("AUTHCLASSNM")
-            private String authClassNm;
+            @JsonAlias("APPCLASSNM")
+            private String appClassNm;
             @JsonAlias("TRANSTIME")
             private String transTime;
             @JsonAlias("APPNO")
             private String appNo;
             @JsonAlias("CARDNO")
-            private String cardMo;
+            private String cardNo;
         }
     }
 

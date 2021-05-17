@@ -12,10 +12,12 @@ import java.time.format.DateTimeFormatter;
 @Setter
 public class CardPayByApiDTO {
     private int payMoney;
+    private String payType;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime paydate;
 
     public CardPayByApiDTO(CardPayByApi cardPayByApi) {
+        this.payType = cardPayByApi.getAppClassNm();
         this.payMoney = cardPayByApi.getAppAmt();
         this.paydate = LocalDateTime.parse(cardPayByApi.getTransDate() + " " + cardPayByApi.getTransTime(), DateTimeFormatter.ofPattern("yyyy-MM-dd HHmmss"));
 

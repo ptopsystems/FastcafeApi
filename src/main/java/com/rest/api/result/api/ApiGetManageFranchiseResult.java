@@ -12,17 +12,17 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-public class ApiManageFranchiseResult {
+public class ApiGetManageFranchiseResult {
     private String errCode;
     private String errMsg;
     private String result;
-    private ApiManageFranchiseResultData data;
+    private ApiGetManageFranchiseResultData data;
 
     @AllArgsConstructor
     @NoArgsConstructor
     @Getter
     @Setter
-    public static class ApiManageFranchiseResultData {
+    public static class ApiGetManageFranchiseResultData {
         @JsonAlias("RESULT")
         private String result;
         @JsonAlias("ERRMSG")
@@ -34,13 +34,13 @@ public class ApiManageFranchiseResult {
         @JsonAlias("ETRACK")
         private String eTrack;
         @JsonAlias("MEMLIST")
-        private List<ApiManageFranchiseResultDataMem> memList;
+        private List<ApiGetManageFranchiseResultDataMem> memList;
 
         @AllArgsConstructor
         @NoArgsConstructor
         @Getter
         @Setter
-        public static class ApiManageFranchiseResultDataMem {
+        public static class ApiGetManageFranchiseResultDataMem {
             @JsonAlias("MEMLISTNO")
             private String memListNo;
             @JsonAlias("MEMLISTNAME")

@@ -57,9 +57,10 @@ cloud:
       auto: false
 
 cardpay:
+  server: dev
   api:
-    url: https://datahub-dev.scraping.co.kr/credit/
-    token: 152604b4167145d88c1cd37a14f1ac0a38bca6bc
+    url: https://api.mydatahub.co.kr/credit/
+    token: 8098c77e3dbb4005b697b9c43d0231cec82b574d
 
 ---
 
@@ -125,9 +126,10 @@ cloud:
       auto: false
 
 cardpay:
+  server: dev
   api:
-    url: https://datahub-dev.scraping.co.kr/credit/
-    token: 152604b4167145d88c1cd37a14f1ac0a38bca6bc
+    url: https://api.mydatahub.co.kr
+    token: 8098c77e3dbb4005b697b9c43d0231cec82b574d
 
 ---
 
@@ -193,6 +195,7 @@ cloud:
       auto: false
 
 cardpay:
+  server: real
   api:
-    url: https://datahub-dev.scraping.co.kr/credit/
-    token: 152604b4167145d88c1cd37a14f1ac0a38bca6bc
+    url: https://api.mydatahub.co.kr
+    token: 8098c77e3dbb4005b697b9c43d0231cec82b574d

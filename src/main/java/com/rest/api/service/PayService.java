@@ -3,8 +3,8 @@ package com.rest.api.service;
 import com.rest.api.entity.fastcafe_admin.CardPayByApi;
 import com.rest.api.entity.fastcafe_admin.VanPay;
 import com.rest.api.repository.fastcafe_admin.CardPayByApiRepository;
-import com.rest.api.repository.fastcafe_admin.SpecificationCardPayByApi;
 import com.rest.api.repository.fastcafe_admin.VanPayRepository;
+import com.rest.api.repository.fastcafe_admin.specification.SpecificationCardPayByApi;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -77,5 +77,10 @@ public class PayService {
                 .and(SpecificationCardPayByApi.betweenTransDate(startdate, enddate)
                 .and(SpecificationCardPayByApi.checkPayType(payType)))
                 , pageable);
+    }
+
+    @Transactional
+    public CardPayByApi getCardPayByApi(int branchId, Date transDate, String transTime, String cardNm, String cardNo, String appNo) {
+        return cardPayByApiRepository.findByBranchIdAndTransDateAndTransTimeAndCardNmAndCardNoAndAppNo(branchId, transDate, transTime, cardNm, cardNo, appNo);
     }
 }
