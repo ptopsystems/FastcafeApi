@@ -96,7 +96,7 @@ public class EtcController {
         return CommonResult.Fail(500, apiPutDeleteManageFranchiseResult.getErrMsg());
     }
 
-    @PostMapping("/etc/cardpay/period")
+    @PostMapping("/etc/paycard/period")
     public CommonResult apiCardPayPeriod(
             @RequestParam(name = "startdate") String strStartdate
             , @RequestParam(name = "enddate") String strEnddate) throws JsonProcessingException {

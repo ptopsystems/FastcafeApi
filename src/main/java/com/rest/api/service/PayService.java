@@ -71,7 +71,7 @@ public class PayService {
     @Transactional
     public Page<CardPayByApi> listCardPayByApi(int branchId, Date startdate, Date enddate, String payType, int page, int size) {
 
-        Pageable pageable = PageRequest.of(page - 1, size, Sort.by(Sort.Direction.DESC, "transDate"));
+        Pageable pageable = PageRequest.of(page - 1, size, Sort.by(Sort.Direction.DESC, "transDate", "transTime"));
         return cardPayByApiRepository.findAll(
                 Specification.where(SpecificationCardPayByApi.eqaulBranchId(branchId))
                 .and(SpecificationCardPayByApi.betweenTransDate(startdate, enddate)
