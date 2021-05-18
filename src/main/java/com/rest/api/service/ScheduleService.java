@@ -85,7 +85,7 @@ public class ScheduleService {
             /*
                 승인내역 조회
              */
-            ResponseEntity<String> responseDetail = restTemplate.exchange(API_URL + "inquiry/Approval/Period", HttpMethod.POST, httpEntity, String.class);
+            ResponseEntity<String> responseDetail = restTemplate.exchange(API_URL + "/inquiry/Approval/Period", HttpMethod.POST, httpEntity, String.class);
 
             ObjectMapper mapper = new ObjectMapper();
             ApiInquiryApprovalPeriodResult apiInquiryApprovalPeriodResult = mapper.readValue(responseDetail.getBody(), ApiInquiryApprovalPeriodResult.class);
@@ -99,7 +99,9 @@ public class ScheduleService {
 
             if(apiInquiryApprovalPeriodResult.getResult().equalsIgnoreCase("SUCCESS")){
                 // 마지막 스케줄 로그 기록과 전체 승인금액이 같으면 SKIP
-                if(checkLog != null && checkLog.getTotalTran() == Integer.parseInt(resultData.getTotalTran())) continue;
+                if(checkLog != null
+                        && !resultData.getTotalTran().equalsIgnoreCase("null")
+                        && checkLog.getTotalTran() == Integer.parseInt(resultData.getTotalTran())) continue;
 
                         /*
                             승인 내역
@@ -113,6 +115,7 @@ public class ScheduleService {
                             , approve.getCardNm()
                             , approve.getCardNo()
                             , approve.getAppNo()
+                            , approve.getAppClassNm()
                     );
 
                     if(entity == null){
@@ -295,7 +298,7 @@ public class ScheduleService {
             가맹점 조회 API 호출
          */
         logger.info("[###API###] 가맹점 조회 호출 시작");
-        ResponseEntity<String> response = restTemplate.exchange(API_URL + "manage/franchise", HttpMethod.GET, httpEntity, String.class);
+        ResponseEntity<String> response = restTemplate.exchange(API_URL + "/manage/franchise", HttpMethod.GET, httpEntity, String.class);
         logger.info("[###API###] 가맹점 조회 호출 종료 ({}ms)", (System.currentTimeMillis() - start));
 
 
@@ -328,7 +331,7 @@ public class ScheduleService {
                      */
                     start = System.currentTimeMillis();
                     logger.info("[###API###] 승인내역 조회 시작");
-                    ResponseEntity<String> responseDetail = restTemplate.exchange(API_URL + "inquiry/Approval/Period", HttpMethod.POST, httpEntity, String.class);
+                    ResponseEntity<String> responseDetail = restTemplate.exchange(API_URL + "/inquiry/Approval/Period", HttpMethod.POST, httpEntity, String.class);
                     logger.info("[###API###] 승인내역 조회 종료 ({}ms)", (System.currentTimeMillis() - start));
 
                     mapper = new ObjectMapper();
@@ -355,6 +358,7 @@ public class ScheduleService {
                                     , approve.getCardNm()
                                     , approve.getCardNo()
                                     , approve.getAppNo()
+                                    , approve.getAppClassNm()
                             );
 
                             if(entity == null){

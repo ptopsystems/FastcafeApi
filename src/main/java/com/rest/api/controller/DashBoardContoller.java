@@ -6,8 +6,9 @@ import com.rest.api.entity.fastcafe_admin.BranchManageUrl;
 import com.rest.api.entity.fastcafe_admin.Notice;
 import com.rest.api.entity.fastcafe_admin.dto.BoardDTO;
 import com.rest.api.entity.fastcafe_admin.dto.NoticeDTO;
-import com.rest.api.entity.fastcafe_stat.dto.IStatVanPayDailyGroupDTO;
-import com.rest.api.entity.fastcafe_stat.dto.IStatVanPayWeeklyGroupDTO;
+import com.rest.api.entity.fastcafe_stat.StatDailyCardPayByApi;
+import com.rest.api.entity.fastcafe_stat.StatMonthlyCardPayByApi;
+import com.rest.api.entity.fastcafe_stat.StatWeeklyCardPayByApi;
 import com.rest.api.exception.AdminNotFoundException;
 import com.rest.api.result.CommonResult;
 import com.rest.api.result.DataResult;
@@ -22,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import java.time.temporal.TemporalAdjusters;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
@@ -41,19 +42,11 @@ public class DashBoardContoller {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Admin admin = adminService.fintByAccount(authentication.getName()).orElseThrow(AdminNotFoundException::new);
 
-        // 결제금액/결제건
-        Date maxDate = statService.getMaxIndexRegdateForStatVanPayDailyByBranchId(admin.getId());
-        IStatVanPayDailyGroupDTO month = null;
-        IStatVanPayWeeklyGroupDTO week = null;
-        IStatVanPayDailyGroupDTO day = null;
-        if(maxDate != null){
-            LocalDate enddate = maxDate.toLocalDate();
-            LocalDate startdate = enddate.with(TemporalAdjusters.firstDayOfMonth());
+        LocalDate yesterday = LocalDate.now().minusDays(1);
 
-            month = statService.getStatVanPayDailyGroupByBranchId(admin.getBranchId(), Date.valueOf(startdate), Date.valueOf(enddate));
-            week = statService.getStatVanPayWeeklyGroupByBranchId(admin.getBranchId(), Date.valueOf(enddate));
-            day = statService.getStatVanPayDaily(admin.getBranchId(), Date.valueOf(enddate));
-        }
+        StatMonthlyCardPayByApi month = statService.getOneStatMonthlyCardPayByApi(admin.getBranchId(), yesterday.format(DateTimeFormatter.ofPattern("yyyy")), yesterday.format(DateTimeFormatter.ofPattern("MM")));
+        StatWeeklyCardPayByApi week = statService.getStatWeeklyCardPayByApi(admin.getBranchId(), Date.valueOf(yesterday));
+        StatDailyCardPayByApi day = statService.getStatDailyCardPayByApi(admin.getBranchId(), Date.valueOf(yesterday));
 
         //공지사항 3개
         Page<Notice> notices = noticeService.listWithPagable("",1, 3, admin.getId());
@@ -67,7 +60,6 @@ public class DashBoardContoller {
         return DataResult.Success("month", month)
                 .addResult("week", week)
                 .addResult("day", day)
-                .addResult("maxDate", maxDate)
                 .addResult("notices", notices.getContent().stream().map(NoticeDTO::new))
                 .addResult("boards", boards.getContent().stream().map(BoardDTO::new))
                 .addResult("urls", urls.stream().map(BranchManageUrl::getManageUrl));

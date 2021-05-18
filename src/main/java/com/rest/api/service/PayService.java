@@ -80,7 +80,7 @@ public class PayService {
     }
 
     @Transactional
-    public CardPayByApi getCardPayByApi(int branchId, Date transDate, String transTime, String cardNm, String cardNo, String appNo) {
-        return cardPayByApiRepository.findByBranchIdAndTransDateAndTransTimeAndCardNmAndCardNoAndAppNo(branchId, transDate, transTime, cardNm, cardNo, appNo);
+    public CardPayByApi getCardPayByApi(int branchId, Date transDate, String transTime, String cardNm, String cardNo, String appNo, String appClassNm) {
+        return cardPayByApiRepository.findByBranchIdAndTransDateAndTransTimeAndCardNmAndCardNoAndAppNoAndAppClassNm(branchId, transDate, transTime, cardNm, cardNo, appNo, appClassNm);
     }
 }

@@ -12,5 +12,5 @@ public interface CardPayByApiRepository extends JpaRepository<CardPayByApi, Inte
     @Query(value = "select max(c.transDate) from CardPayByApi c where c.branchId=:branch_id")
     Date getMaxTransDate(@Param(value = "branch_id") int branch_id);
 
-    CardPayByApi findByBranchIdAndTransDateAndTransTimeAndCardNmAndCardNoAndAppNo(int branchId, Date transDate, String transTime, String cardNm, String cardNo, String appNo);
+    CardPayByApi findByBranchIdAndTransDateAndTransTimeAndCardNmAndCardNoAndAppNoAndAppClassNm(int branchId, Date transDate, String transTime, String cardNm, String cardNo, String appNo, String appClassNm);
 }

@@ -59,7 +59,7 @@ cloud:
 cardpay:
   server: dev
   api:
-    url: https://api.mydatahub.co.kr/credit/
+    url: https://api.mydatahub.co.kr/credit
     token: 8098c77e3dbb4005b697b9c43d0231cec82b574d
 
 ---
@@ -128,7 +128,7 @@ cloud:
 cardpay:
   server: dev
   api:
-    url: https://api.mydatahub.co.kr
+    url: https://api.mydatahub.co.kr/credit
     token: 8098c77e3dbb4005b697b9c43d0231cec82b574d
 
 ---
@@ -197,5 +197,5 @@ cloud:
 cardpay:
   server: real
   api:
-    url: https://api.mydatahub.co.kr
+    url: https://api.mydatahub.co.kr/credit
     token: 8098c77e3dbb4005b697b9c43d0231cec82b574d

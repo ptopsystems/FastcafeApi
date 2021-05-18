@@ -83,7 +83,7 @@ public class EtcController {
 
         HttpEntity<HashMap<String, String>> httpEntity = new HttpEntity<>(body, headers);
 
-        ResponseEntity<String> response = restTemplate.exchange(API_URL + "manage/franchise", method, httpEntity, String.class);
+        ResponseEntity<String> response = restTemplate.exchange(API_URL + "/manage/franchise", method, httpEntity, String.class);
 
         ObjectMapper mapper = new ObjectMapper();
         ApiPutDeleteManageFranchiseResult apiPutDeleteManageFranchiseResult = mapper.readValue(response.getBody(), ApiPutDeleteManageFranchiseResult.class);
