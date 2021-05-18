@@ -309,4 +309,8 @@ public class StatService {
     public StatDailyCardPayByApi getStatDailyCardPayByApi(int branch_id, Date basedate) {
         return statDailyCardPayByApiRepository.findByBranchIdAndIndexRegdate(branch_id, basedate);
     }
+
+    public IStatWeeklyCardPayByApiDTO getWeekSumStatDailyCardPayByApi(int branch_id, Date basedate) {
+        return statDailyCardPayByApiRepository.findWeekSum(branch_id, basedate);
+    }
 }

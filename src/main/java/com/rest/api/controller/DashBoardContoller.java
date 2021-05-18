@@ -8,9 +8,9 @@ import com.rest.api.entity.fastcafe_admin.dto.BoardDTO;
 import com.rest.api.entity.fastcafe_admin.dto.NoticeDTO;
 import com.rest.api.entity.fastcafe_stat.StatDailyCardPayByApi;
 import com.rest.api.entity.fastcafe_stat.StatMonthlyCardPayByApi;
-import com.rest.api.entity.fastcafe_stat.StatWeeklyCardPayByApi;
 import com.rest.api.entity.fastcafe_stat.dto.IStatVanPayDailyGroupDTO;
 import com.rest.api.entity.fastcafe_stat.dto.IStatVanPayWeeklyGroupDTO;
+import com.rest.api.entity.fastcafe_stat.dto.IStatWeeklyCardPayByApiDTO;
 import com.rest.api.exception.AdminNotFoundException;
 import com.rest.api.result.CommonResult;
 import com.rest.api.result.DataResult;
@@ -87,7 +87,7 @@ public class DashBoardContoller {
         LocalDate yesterday = LocalDate.now().minusDays(1);
 
         StatMonthlyCardPayByApi month = statService.getOneStatMonthlyCardPayByApi(admin.getBranchId(), yesterday.format(DateTimeFormatter.ofPattern("yyyy")), yesterday.format(DateTimeFormatter.ofPattern("MM")));
-        StatWeeklyCardPayByApi week = statService.getStatWeeklyCardPayByApi(admin.getBranchId(), Date.valueOf(yesterday));
+        IStatWeeklyCardPayByApiDTO week = statService.getWeekSumStatDailyCardPayByApi(admin.getBranchId(), Date.valueOf(yesterday));
         StatDailyCardPayByApi day = statService.getStatDailyCardPayByApi(admin.getBranchId(), Date.valueOf(yesterday));
 
         //공지사항 3개
