@@ -15,7 +15,6 @@ public class ExceptionControllerAdvice {
 
     @ExceptionHandler(Exception.class)
     public CommonResult excption(HttpServletRequest req, HttpServletResponse res, final Exception e){
-        System.out.println("#### EXCEPTION #### - " + e.getLocalizedMessage());
         e.printStackTrace();
         return CommonResult.Fail(500, e.getMessage());
     }

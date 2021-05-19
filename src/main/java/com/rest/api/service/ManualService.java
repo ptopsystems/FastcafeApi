@@ -19,6 +19,7 @@ public class ManualService {
     public Optional<Manual> get(int id) {
         return manualRepository.findByIdAndStat(id, "1000");
     }
+
     @Transactional
     public Manual getByMachineModel(String machineModel) {
         return manualRepository.findFirstByMachineModelAndStatOrderByVersionDesc(machineModel, "1000");

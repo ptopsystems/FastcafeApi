@@ -17,7 +17,7 @@ public class CommonResult {
    }
 
    public CommonResult(int code, String msg){
-       if(code != 200) this.status = false;
+       this.status = code == 200;
        this.code = code;
        this.msg = msg;
    }

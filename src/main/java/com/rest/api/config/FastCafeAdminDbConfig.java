@@ -1,7 +1,6 @@
 package com.rest.api.config;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -25,14 +24,12 @@ import java.util.HashMap;
         transactionManagerRef = "fastCafeAdminTransactionManager",
         basePackages = {"com.rest.api.repository.fastcafe_admin"}
 )
-
 public class FastCafeAdminDbConfig {
 
     private final Environment env;
 
     @Primary
     @Bean(name = "fastCafeAdminDataSource")
-    @ConfigurationProperties(prefix = "datasource.fastcafe-admin")
     public DataSource fastcafeAdminDataSource(){
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setUrl(env.getProperty("datasource.fastcafe-admin.url"));
