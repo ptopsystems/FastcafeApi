@@ -18,9 +18,9 @@ public class SpecificationCardPayByApi {
     public static Specification<CardPayByApi> checkPayType(final String payType) {
         return (root, query, criteriaBuilder) -> {
           if(payType.equals("approve")) {
-              return criteriaBuilder.greaterThanOrEqualTo(root.get("appAmt"), 0);
+              return criteriaBuilder.equal(root.get("appClassNm"), "승인");
           } else if(payType.equals("cancel")) {
-              return criteriaBuilder.lessThan(root.get("appAmt"), 0);
+              return criteriaBuilder.equal(root.get("appClassNm"), "취소");
           }
           return null;
         };
