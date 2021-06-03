@@ -56,14 +56,14 @@ public class ScheduleService {
             long starttime = System.currentTimeMillis();
             // 오늘 데이터 조회기록이 있는지 로그 검색
             LogCardPayByApiData checkLog = logService.getLastLogCardPayByApiData(branch.getId(), Date.valueOf(today));
-            if(checkLog != null) {
+            if (checkLog != null) {
                 // 조회 기록이 있다면 같은 검색기간으로 조회
                 startdate = checkLog.getStartdate().toLocalDate();
                 enddate = checkLog.getEnddate().toLocalDate();
             } else {
                 // 마지막 데이터 날짜 조회
                 Date maxDate = payService.getMaxTransDateForCardPayByApi(branch.getId());
-                if(maxDate != null
+                if (maxDate != null
                         && (enddate.isAfter(maxDate.toLocalDate().plusDays(1)) || enddate.isEqual(maxDate.toLocalDate().plusDays(1)))) {
                     // 마지막 데이터 날짜가 전일자 보다 이전이거나 같으면 검색 시작일 수정
                     startdate = maxDate.toLocalDate().plusDays(1);
@@ -94,19 +94,22 @@ public class ScheduleService {
             logger.info("[API] 검색기간: {} ~ {}, 지점명: {}, 총매출: {}"
                     , startdate.format(DateTimeFormatter.ofPattern("yyyyMMdd"))
                     , enddate.format(DateTimeFormatter.ofPattern("yyyyMMdd"))
-                    ,  branch.getBranchName()
+                    , branch.getBranchName()
                     , resultData.getTotalTran());
 
-            if(apiInquiryApprovalPeriodResult.getResult().equalsIgnoreCase("SUCCESS")){
+            if (apiInquiryApprovalPeriodResult.getResult().equalsIgnoreCase("SUCCESS")) {
                 // 마지막 스케줄 로그 기록과 전체 승인금액이 같으면 SKIP
-                if(checkLog != null
+                if ((checkLog != null
                         && !resultData.getTotalTran().equalsIgnoreCase("null")
-                        && checkLog.getTotalTran() == Integer.parseInt(resultData.getTotalTran())) continue;
+                        && checkLog.getTotalTran() == Integer.parseInt(resultData.getTotalTran()))
+                        && !resultData.getApproveCnt().equalsIgnoreCase("null")
+                        && Integer.parseInt(resultData.getApproveCnt()) == resultData.getApproveList().size()
+                ) continue;
 
                         /*
                             승인 내역
                          */
-                for(ApiInquiryApprovalPeriodResult.ApiInquiryApprovalPeriodResultData.ApiInquiryApprovalPeriodResultDataApprove approve : resultData.getApproveList()){
+                for (ApiInquiryApprovalPeriodResult.ApiInquiryApprovalPeriodResultData.ApiInquiryApprovalPeriodResultDataApprove approve : resultData.getApproveList()) {
                     // 같은 데이터가 있는지 검색
                     CardPayByApi entity = payService.getCardPayByApi(
                             branch.getId()
@@ -118,7 +121,7 @@ public class ScheduleService {
                             , approve.getAppClassNm()
                     );
 
-                    if(entity == null){
+                    if (entity == null) {
                         // 같은 데이터가 없는 경우에만 저장
                         entity = CardPayByApi.builder()
                                 .branchId(branch.getId())
@@ -162,7 +165,6 @@ public class ScheduleService {
 
             log = logService.insertLogCardPayByApiData(log);
         }
-
     }
 
     @Transactional
