@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.sql.Date;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -82,5 +83,13 @@ public class PayService {
     @Transactional
     public CardPayByApi getCardPayByApi(int branchId, Date transDate, String transTime, String cardNm, String cardNo, String appNo, String appClassNm) {
         return cardPayByApiRepository.findByBranchIdAndTransDateAndTransTimeAndCardNmAndCardNoAndAppNoAndAppClassNm(branchId, transDate, transTime, cardNm, cardNo, appNo, appClassNm);
+    }
+
+    @Transactional
+    public List<CardPayByApi> listCardPayByApi(int branchId, Date startdate, Date enddate, String payType) {
+        return cardPayByApiRepository.findAll(
+                Specification.where(SpecificationCardPayByApi.eqaulBranchId(branchId))
+                .and(SpecificationCardPayByApi.betweenTransDate(startdate, enddate)
+                .and(SpecificationCardPayByApi.checkPayType(payType))));
     }
 }

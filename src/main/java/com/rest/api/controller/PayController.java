@@ -24,6 +24,7 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @RestController
 @RequestMapping("/v1")
@@ -83,7 +84,7 @@ public class PayController {
     public CommonResult payCard(
             @RequestParam(name = "startdate", required = false) String strStartdate
             , @RequestParam(name = "enddate", required = false) String strEnddate
-            , @RequestParam(name = "payType", defaultValue = "") String payType
+            , @RequestParam(name = "payType", required = false, defaultValue = "") String payType
             , @RequestParam(defaultValue = "1") int page
             , @RequestParam(defaultValue = "10") int size
     ) {
@@ -104,9 +105,11 @@ public class PayController {
         }
 
         Page<CardPayByApi> cardPayByApis = payService.listCardPayByApi(admin.getBranchId(), startdate, enddate, payType, page, size);
+        List<CardPayByApi> totalCardPayByApis = payService.listCardPayByApi(admin.getBranchId(), startdate, enddate, payType);
         return DataResult.Success("pays", cardPayByApis.getContent().stream().map(CardPayByApiDTO::new))
+                .addResult("total", totalCardPayByApis.stream().map((t) -> (long)t.getAppAmt()).reduce(Long::sum))
                 .addResult("page", page)
                 .addResult("size", size)
-                .addResult("totalPages", cardPayByApis.getTotalPages());
+                .addResult("totalCnt", cardPayByApis.getTotalElements());
     }
 }
