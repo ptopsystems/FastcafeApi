@@ -15,11 +15,16 @@ public class CardPayByApiDTO {
     private String payType;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime paydate;
+    private String cardNm;
+    private String cardNo;
+    private String appNo;
 
     public CardPayByApiDTO(CardPayByApi cardPayByApi) {
         this.payType = cardPayByApi.getAppClassNm();
         this.payMoney = cardPayByApi.getAppAmt();
         this.paydate = LocalDateTime.parse(cardPayByApi.getTransDate() + " " + cardPayByApi.getTransTime(), DateTimeFormatter.ofPattern("yyyy-MM-dd HHmmss"));
-
+        this.cardNm = cardPayByApi.getCardNm();
+        this.cardNo = cardPayByApi.getCardNo();
+        this.appNo = cardPayByApi.getAppNo();
     }
 }
