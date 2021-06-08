@@ -18,7 +18,7 @@ public interface StatDailyCardPayByApiRepository extends JpaRepository<StatDaily
 
     StatDailyCardPayByApi findByBranchIdAndIndexRegdate(int branchId, Date basedate);
 
-    @Query(value = "select min(indexRegdate) as startdate, max(indexRegdate) as enddate, sum(total) as total, sum(totalCnt) as totalCnt " +
+    @Query(value = "select min(indexRegdate) as startdate, max(indexRegdate) as enddate, ifnull(sum(total), 0) as total, ifnull(sum(totalCnt), 0) as totalCnt " +
             "from stat_daily_cardpaybyapi " +
             "where branch_id=:branch_id and indexRegdate between date_add(:basedate, interval -6 day) and :basedate ", nativeQuery = true)
     IStatWeeklyCardPayByApiDTO findWeekSum(@Param(value = "branch_id") int branch_id,@Param(value = "basedate") Date basedate);
