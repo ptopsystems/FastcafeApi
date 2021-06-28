@@ -104,6 +104,7 @@ public class ScheduleService {
                         && checkLog.getTotalTran() == Integer.parseInt(resultData.getTotalTran()))
                         && !resultData.getApproveCnt().equalsIgnoreCase("null")
                         && Integer.parseInt(resultData.getTranCnt()) == resultData.getApproveList().size()
+                        && resultData.getResult().equalsIgnoreCase("SUCCESS")
                 ) continue;
 
                         /*
