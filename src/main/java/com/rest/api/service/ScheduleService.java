@@ -99,47 +99,81 @@ public class ScheduleService {
 
             if (apiInquiryApprovalPeriodResult.getResult().equalsIgnoreCase("SUCCESS")) {
                 // 마지막 스케줄 로그 기록과 전체 승인금액이 같으면 SKIP
-                if ((checkLog != null
-                        && !resultData.getTotalTran().equalsIgnoreCase("null")
-                        && checkLog.getTotalTran() == Integer.parseInt(resultData.getTotalTran()))
-                        && !resultData.getApproveCnt().equalsIgnoreCase("null")
-                        && Integer.parseInt(resultData.getTranCnt()) == resultData.getApproveList().size()
-                        && resultData.getResult().equalsIgnoreCase("SUCCESS")
-                ) continue;
+                if(resultData.getResult().equalsIgnoreCase("SUCCESS")) {
+                    /*
+                        승인 내역
+                     */
+                    for (ApiInquiryApprovalPeriodResult.ApiInquiryApprovalPeriodResultData.ApiInquiryApprovalPeriodResultDataApprove approve : resultData.getApproveList()) {
+                        // 같은 데이터가 있는지 검색
+                        CardPayByApi entity = payService.getCardPayByApi(
+                                branch.getId()
+                                , Date.valueOf(LocalDate.parse(approve.getTransDate(), DateTimeFormatter.ofPattern("yyyyMMdd")))
+                                , approve.getTransTime()
+                                , approve.getCardNm()
+                                , approve.getCardNo()
+                                , approve.getAppNo()
+                                , approve.getAppClassNm()
+                        );
 
-                        /*
-                            승인 내역
-                         */
-                for (ApiInquiryApprovalPeriodResult.ApiInquiryApprovalPeriodResultData.ApiInquiryApprovalPeriodResultDataApprove approve : resultData.getApproveList()) {
-                    // 같은 데이터가 있는지 검색
-                    CardPayByApi entity = payService.getCardPayByApi(
-                            branch.getId()
-                            , Date.valueOf(LocalDate.parse(approve.getTransDate(), DateTimeFormatter.ofPattern("yyyyMMdd")))
-                            , approve.getTransTime()
-                            , approve.getCardNm()
-                            , approve.getCardNo()
-                            , approve.getAppNo()
-                            , approve.getAppClassNm()
-                    );
+                        if (entity == null) {
+                            // 같은 데이터가 없는 경우에만 저장
+                            entity = CardPayByApi.builder()
+                                    .branchId(branch.getId())
+                                    .transDate(Date.valueOf(LocalDate.parse(approve.getTransDate(), DateTimeFormatter.ofPattern("yyyyMMdd"))))
+                                    .transTime(approve.getTransTime())
+                                    .appClassNm(approve.getAppClassNm().equalsIgnoreCase("null") ? "" : approve.getAppClassNm())
+                                    .cardNm(approve.getCardNm())
+                                    .cardNo(approve.getCardNo())
+                                    .appNo(approve.getAppNo())
+                                    .appAmt(Integer.parseInt(approve.getAppAmt()))
+                                    .instrmNm(approve.getInstrmNm().replaceAll(" ", ""))
+                                    .regdate(new Timestamp(System.currentTimeMillis()))
+                                    .build();
 
-                    if (entity == null) {
-                        // 같은 데이터가 없는 경우에만 저장
-                        entity = CardPayByApi.builder()
-                                .branchId(branch.getId())
-                                .transDate(Date.valueOf(LocalDate.parse(approve.getTransDate(), DateTimeFormatter.ofPattern("yyyyMMdd"))))
-                                .transTime(approve.getTransTime())
-                                .appClassNm(approve.getAppClassNm().equalsIgnoreCase("null") ? "" : approve.getAppClassNm())
-                                .cardNm(approve.getCardNm())
-                                .cardNo(approve.getCardNo())
-                                .appNo(approve.getAppNo())
-                                .appAmt(Integer.parseInt(approve.getAppAmt()))
-                                .instrmNm(approve.getInstrmNm().replaceAll(" ", ""))
-                                .regdate(new Timestamp(System.currentTimeMillis()))
-                                .build();
+                            entity = payService.insertCardPayByApi(entity);
+                        }
+                    }
+                } else {
+                    
+                    // API 데이터 호출 실패한 경우 한번 더 호출
+                    responseDetail = restTemplate.exchange(API_URL + "/inquiry/Approval/Period", HttpMethod.POST, httpEntity, String.class);
+                    apiInquiryApprovalPeriodResult = mapper.readValue(responseDetail.getBody(), ApiInquiryApprovalPeriodResult.class);
+                    resultData = apiInquiryApprovalPeriodResult.getData();
 
-                        entity = payService.insertCardPayByApi(entity);
+                    if(resultData.getResult().equalsIgnoreCase("SUCCESS")) {
+                        for (ApiInquiryApprovalPeriodResult.ApiInquiryApprovalPeriodResultData.ApiInquiryApprovalPeriodResultDataApprove approve : resultData.getApproveList()) {
+                            // 같은 데이터가 있는지 검색
+                            CardPayByApi entity = payService.getCardPayByApi(
+                                    branch.getId()
+                                    , Date.valueOf(LocalDate.parse(approve.getTransDate(), DateTimeFormatter.ofPattern("yyyyMMdd")))
+                                    , approve.getTransTime()
+                                    , approve.getCardNm()
+                                    , approve.getCardNo()
+                                    , approve.getAppNo()
+                                    , approve.getAppClassNm()
+                            );
+
+                            if (entity == null) {
+                                // 같은 데이터가 없는 경우에만 저장
+                                entity = CardPayByApi.builder()
+                                        .branchId(branch.getId())
+                                        .transDate(Date.valueOf(LocalDate.parse(approve.getTransDate(), DateTimeFormatter.ofPattern("yyyyMMdd"))))
+                                        .transTime(approve.getTransTime())
+                                        .appClassNm(approve.getAppClassNm().equalsIgnoreCase("null") ? "" : approve.getAppClassNm())
+                                        .cardNm(approve.getCardNm())
+                                        .cardNo(approve.getCardNo())
+                                        .appNo(approve.getAppNo())
+                                        .appAmt(Integer.parseInt(approve.getAppAmt()))
+                                        .instrmNm(approve.getInstrmNm().replaceAll(" ", ""))
+                                        .regdate(new Timestamp(System.currentTimeMillis()))
+                                        .build();
+
+                                entity = payService.insertCardPayByApi(entity);
+                            }
+                        }
                     }
                 }
+
             }
 
             // 결과 로그 저장
