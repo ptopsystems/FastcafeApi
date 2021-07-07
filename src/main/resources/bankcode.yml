@@ -25,10 +25,10 @@ bankcode:
       code: "009"
       bankName: 수협중앙회
     -
-      code: "010"
+      code: "011"
       bankName: 농협은행
     -
-      code: "011"
+      code: "012"
       bankName: 농협중앙회
     -
       code: "020"
