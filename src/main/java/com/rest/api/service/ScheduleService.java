@@ -110,7 +110,6 @@ public class ScheduleService {
                                 , Date.valueOf(LocalDate.parse(approve.getTransDate(), DateTimeFormatter.ofPattern("yyyyMMdd")))
                                 , approve.getTransTime()
                                 , approve.getCardNm()
-                                , approve.getCardNo()
                                 , approve.getAppNo()
                                 , approve.getAppClassNm()
                         );
@@ -148,7 +147,6 @@ public class ScheduleService {
                                     , Date.valueOf(LocalDate.parse(approve.getTransDate(), DateTimeFormatter.ofPattern("yyyyMMdd")))
                                     , approve.getTransTime()
                                     , approve.getCardNm()
-                                    , approve.getCardNo()
                                     , approve.getAppNo()
                                     , approve.getAppClassNm()
                             );
@@ -275,7 +273,6 @@ public class ScheduleService {
                                     , Date.valueOf(LocalDate.parse(approve.getTransDate(), DateTimeFormatter.ofPattern("yyyyMMdd")))
                                     , approve.getTransTime()
                                     , approve.getCardNm()
-                                    , approve.getCardNo()
                                     , approve.getAppNo()
                                     , approve.getAppClassNm()
                             );
